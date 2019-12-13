@@ -1,0 +1,19 @@
+.form-field {
+    margin: 10px;
+    width: calc( 50% - 20px);
+}
+
+h1 {
+    font-size: 18pt;
+}
+
+h2 {
+    font-size: 10pt;
+    font-weight: lighter;
+}
+
+
+.form-section {
+    width: 50%;
+    max-width: 400px;
+}

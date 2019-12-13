@@ -8,6 +8,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule, MatFormFieldModule } from '@angular/material';
 import { InvestmentValuesFormComponent } from './investment-values-form/investment-values-form.component'
 
+import { ChartsModule } from 'ng2-charts';
+
 const modules = [
   MatInputModule,
   MatFormFieldModule
@@ -23,6 +25,7 @@ const modules = [
   ],
   imports: [
     ...modules,
+    ChartsModule,
     BrowserModule,
     AppRoutingModule,
     NoopAnimationsModule

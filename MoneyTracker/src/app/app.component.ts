@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
-import { InvestmentDetails } from './investment-details'
-import { InvestedProjections } from './invested-projections'
+import { InvestmentDetails } from './investment-details';
+import { InvestedProjections } from './invested-projections';
+import { ProjectionsService } from './projections.service';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +11,19 @@ import { InvestedProjections } from './invested-projections'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   title = 'MoneyTracker';
+  projectionsService: ProjectionsService
+
+  constructor(projectionsService : ProjectionsService) {
+    this.projectionsService = projectionsService
+  }
 
   public totalAmountData: ChartDataSets[] = [
-    { data: [0], label: 'All Money' },
+    { data: [0], label: '-' },
   ];
   public earningsData: ChartDataSets[] = [
-    { data: [0], label: 'All Earnings' },
+    { data: [0], label: '-' },
   ];
   public lineChartLabels: Label[] = this.generateLabels(1);
   public lineChartOptions: ChartOptions = {
@@ -32,20 +39,24 @@ export class AppComponent {
   public lineChartType = 'line';
   public lineChartPlugins = [];
 
+  investmentProjection: InvestedProjections
+
   updatedValues(formValues: InvestmentDetails) {
-    let data: InvestedProjections = this.generateData(formValues);
+    let data: InvestedProjections = this.projectionsService.procectionsFrom(formValues);
+
+    this.investmentProjection = data
     this.totalAmountData = [
-      { data: data.monthlyTotal, label: 'All Money' },
-      { data: data.monthlySaved, label: 'Invested' },
-      { data: data.monthlyInvested, label: 'Saved' },
+      { data: data.total.monthly, label: data.total.description },
+      { data: data.saved.monthly, label: data.saved.description },
+      { data: data.invested.monthly, label: data.invested.description },
     ]
     this.earningsData = [
-      { data: data.monthlyEarnings, label: 'All Earnings' },
-      { data: data.monthlySavedEarnings, label: 'Saved Earnings' },
-      { data: data.monthlyInvestedEarnings, label: 'Invested Earnings' },
+      { data: data.total.monthlyEarning, label: data.total.description },
+      { data: data.saved.monthlyEarning, label: data.saved.description },
+      { data: data.invested.monthlyEarning, label: data.invested.description },
     ]
 
-    this.lineChartLabels = this.generateLabels(data.monthlyTotal.length);
+    this.lineChartLabels = this.generateLabels(data.total.monthly.length);
   }
 
   generateLabels(count: number) : Array<string>  {
@@ -54,41 +65,5 @@ export class AppComponent {
       labels.push(`${i + 1}`)
     }
     return labels
-  }
-
-  generateData(formDetails: InvestmentDetails) : InvestedProjections {
-    let monthlyTotal: Array<number> = []
-    let monthlySavings: Array<number> = []
-    let monthlyInvested: Array<number> = []
-
-    let monthlyEarnings: Array<number> = []
-    let monthlySavingsEarnings: Array<number> = []
-    let monthlyInvestedEarnings: Array<number> = []
-
-    let saved: number = 0
-    let invested: number = 0
-
-    let numberOfMonths: number = formDetails.numberOfYears * 12;
-
-    for (var i = 0; i < numberOfMonths; i++) {
-      saved += formDetails.monthlySavings;
-      let newSaved: number = saved * (1 + formDetails.savingsInterest);
-      monthlySavings.push(newSaved);
-      let savedEarning: number = newSaved - saved
-      monthlySavingsEarnings.push(savedEarning)
-      saved = newSaved;
-
-      invested += formDetails.monthlyInvestment;
-      let newInvested = invested * (1 + formDetails.investmentInterest);
-      monthlyInvested.push(newInvested);
-      let investedEarning: number = newInvested - invested;
-      monthlyInvestedEarnings.push(investedEarning);
-      invested = newInvested;
-
-      monthlyTotal.push(saved + invested);
-      monthlyEarnings.push(investedEarning + savedEarning);
-    }
-
-    return new InvestedProjections(monthlyTotal, monthlyInvested, monthlySavings, monthlyEarnings, monthlyInvestedEarnings, monthlySavingsEarnings)
   }
 }

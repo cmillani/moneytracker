@@ -1,32 +1,64 @@
-<app-investment-values-form (formDetailsEmitter)="updatedValues($event)"></app-investment-values-form>
-<div class="chart">
-  <canvas
-    baseChart
-    width="400"
-    height="400"
-    [datasets]="totalAmountData"
-    [labels]="lineChartLabels"
-    [options]="lineChartOptions"
-    [colors]="lineChartColors"
-    [legend]="lineChartLegend"
-    [chartType]="lineChartType"
-    [plugins]="lineChartPlugins"
-  >
-  </canvas>
-</div>
-<div class="chart">
-    <canvas
-      baseChart
-      width="400"
-      height="400"
-      [datasets]="earningsData"
-      [labels]="lineChartLabels"
-      [options]="lineChartOptions"
-      [colors]="lineChartColors"
-      [legend]="lineChartLegend"
-      [chartType]="lineChartType"
-      [plugins]="lineChartPlugins"
-    >
-    </canvas>
+<div class="container">
+  <div class="row">
+    <app-investment-values-form
+      (formDetailsEmitter)="updatedValues($event)"
+      class="col-4"
+    ></app-investment-values-form>
+    <div class="col-8">
+      <div class="row">
+        <div class="col">
+          <canvas
+            baseChart
+            width="200"
+            height="200"
+            [datasets]="totalAmountData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            [plugins]="lineChartPlugins"
+          >
+          </canvas>
+        </div>
+        <div class="col">
+          <canvas
+            baseChart
+            width="200"
+            height="200"
+            [datasets]="earningsData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            [plugins]="lineChartPlugins"
+          >
+          </canvas>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="row">
+            <p class="col"> <strong>{{investmentProjection.total.description}}:</strong> {{investmentProjection.total.total}} </p>
+            <p class="col"> <strong>{{investmentProjection.invested.description}}:</strong> {{investmentProjection.invested.total}} </p>
+            <p class="col"> <strong>{{investmentProjection.saved.description}}:</strong> {{investmentProjection.saved.total}} </p>
+          </div>
+          <div class="row">
+            <p class="col"> <strong>{{investmentProjection.total.description}}:</strong> {{investmentProjection.total.original}} </p>
+            <p class="col"> <strong>{{investmentProjection.invested.description}}:</strong> {{investmentProjection.invested.original}} </p>
+            <p class="col"> <strong>{{investmentProjection.saved.description}}:</strong> {{investmentProjection.saved.original}} </p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row">
+            <p class="col"> <strong>{{investmentProjection.total.description}}:</strong> {{investmentProjection.total.gainings}} </p>
+            <p class="col"> <strong>{{investmentProjection.invested.description}}:</strong> {{investmentProjection.invested.gainings}} </p>
+            <p class="col"> <strong>{{investmentProjection.saved.description}}:</strong> {{investmentProjection.saved.gainings}} </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 <router-outlet></router-outlet>

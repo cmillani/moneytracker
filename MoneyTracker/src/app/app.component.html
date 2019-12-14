@@ -1,10 +1,10 @@
-<app-investment-values-form></app-investment-values-form>
+<app-investment-values-form (formDetailsEmitter)="updatedValues($event)"></app-investment-values-form>
 <div class="chart">
   <canvas
     baseChart
     width="400"
     height="400"
-    [datasets]="lineChartData"
+    [datasets]="totalAmountData"
     [labels]="lineChartLabels"
     [options]="lineChartOptions"
     [colors]="lineChartColors"
@@ -14,4 +14,19 @@
   >
   </canvas>
 </div>
+<div class="chart">
+    <canvas
+      baseChart
+      width="400"
+      height="400"
+      [datasets]="earningsData"
+      [labels]="lineChartLabels"
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+      [plugins]="lineChartPlugins"
+    >
+    </canvas>
+  </div>
 <router-outlet></router-outlet>

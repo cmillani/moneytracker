@@ -7,7 +7,14 @@
       </div>
       <div class="section-fields">
         <mat-form-field class="form-field">
-          <input matInput type="number" id="numberOfYears" placeholder="Anos" />
+          <input
+            matInput
+            type="number"
+            id="numberOfYears"
+            placeholder="Anos"
+            [(ngModel)]="formDetails.numberOfYears"
+            (change) = "updatedValue()"
+          />
         </mat-form-field>
       </div>
     </div>
@@ -32,6 +39,8 @@
             type="number"
             id="monthlySavings"
             placeholder="Economia"
+            [(ngModel)]="formDetails.monthlySavings"
+            (change) = "updatedValue()"
           />
         </mat-form-field>
 
@@ -41,6 +50,8 @@
             type="number"
             id="monthlyInvested"
             placeholder="Investimento"
+            [(ngModel)]="formDetails.monthlyInvestment"
+            (change) = "updatedValue()"
           />
         </mat-form-field>
       </div>
@@ -61,6 +72,8 @@
             type="number"
             id="savingsInterest"
             placeholder="Economia"
+            [(ngModel)]="formDetails.savingsInterest"
+            (change) = "updatedValue()"
           />
         </mat-form-field>
 
@@ -68,8 +81,10 @@
           <input
             matInput
             type="number"
-            id="investedInterest"
+            id="investmentInterest"
             placeholder="Investimento"
+            [(ngModel)]="formDetails.investmentInterest"
+            (change) = "updatedValue()"
           />
         </mat-form-field>
       </div>

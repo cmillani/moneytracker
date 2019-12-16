@@ -5,66 +5,9 @@
       (formDetailsEmitter)="updatedValues($event)"
       class="col-4"
     ></app-investment-values-form>
-    <div class="col-8">
-      <div class="row">
-        <div class="col">
-          <strong>Total</strong>
-          <canvas
-            baseChart
-            width="200"
-            height="200"
-            [datasets]="totalAmountData"
-            [labels]="lineChartLabels"
-            [options]="lineChartOptions"
-            [colors]="lineChartColors"
-            [legend]="lineChartLegend"
-            [chartType]="lineChartType"
-            [plugins]="lineChartPlugins"
-          >
-          </canvas>
-          <strong class="row">Montante Total</strong>
-          <div class="row">
-            <p class="col"> <strong>{{investmentProjection.total.description}}:</strong> {{investmentProjection.total.total}} </p>
-            <p class="col"> <strong>{{investmentProjection.invested.description}}:</strong> {{investmentProjection.invested.total}} </p>
-            <p class="col"> <strong>{{investmentProjection.saved.description}}:</strong> {{investmentProjection.saved.total}} </p>
-          </div>
-          <strong class="row">Investido</strong>
-          <div class="row">
-            <p class="col"> <strong>{{investmentProjection.total.description}}:</strong> {{investmentProjection.total.original}} </p>
-            <p class="col"> <strong>{{investmentProjection.invested.description}}:</strong> {{investmentProjection.invested.original}} </p>
-            <p class="col"> <strong>{{investmentProjection.saved.description}}:</strong> {{investmentProjection.saved.original}} </p>
-          </div>
-          <strong class="row">Rendimento Bruto</strong>
-          <div class="row">
-            <p class="col"> <strong>{{investmentProjection.total.description}}:</strong> {{investmentProjection.total.gainings}} </p>
-            <p class="col"> <strong>{{investmentProjection.invested.description}}:</strong> {{investmentProjection.invested.gainings}} </p>
-            <p class="col"> <strong>{{investmentProjection.saved.description}}:</strong> {{investmentProjection.saved.gainings}} </p>
-          </div>
-        </div>
-        <div class="col">
-          <strong>Rendimentos Mensais</strong>
-          <canvas
-            baseChart
-            width="200"
-            height="200"
-            [datasets]="earningsData"
-            [labels]="lineChartLabels"
-            [options]="lineChartOptions"
-            [colors]="lineChartColors"
-            [legend]="lineChartLegend"
-            [chartType]="lineChartType"
-            [plugins]="lineChartPlugins"
-          >
-          </canvas>
-          <strong class="row">Rendimento Mensal Final</strong>
-          <div class="row">
-            <p class="col"> <strong>{{investmentProjection.total.description}}:</strong> {{investmentProjection.total.finalMonthlyEarning}} </p>
-            <p class="col"> <strong>{{investmentProjection.invested.description}}:</strong> {{investmentProjection.invested.finalMonthlyEarning}} </p>
-            <p class="col"> <strong>{{investmentProjection.saved.description}}:</strong> {{investmentProjection.saved.finalMonthlyEarning}} </p>
-          </div>
-        </div>
-      </div>
-    </div>
+  </div>
+  <div class="row">
+    <app-projection-graphs></app-projection-graphs>
   </div>
 </div>
 <router-outlet></router-outlet>

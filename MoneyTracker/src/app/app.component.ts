@@ -1,69 +1,30 @@
-import { Component } from '@angular/core';
-import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { InvestmentDetails } from './investment-details';
-import { InvestedProjections } from './invested-projections';
-import { ProjectionsService } from './projections.service';
+import { ProjectionGraphsComponent } from './projection-graphs/projection-graphs.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit{
 
   title = 'MoneyTracker';
-  projectionsService: ProjectionsService
+  @ViewChild(ProjectionGraphsComponent, {static: false}) projectionGraphs: ProjectionGraphsComponent;
+  investmentDetails: InvestmentDetails = new InvestmentDetails();
 
-  constructor(projectionsService : ProjectionsService) {
-    this.projectionsService = projectionsService
-  }
-
-  public totalAmountData: ChartDataSets[] = [
-    { data: [0], label: '-' },
-  ];
-  public earningsData: ChartDataSets[] = [
-    { data: [0], label: '-' },
-  ];
-  public lineChartLabels: Label[] = this.generateLabels(1);
-  public lineChartOptions: ChartOptions = {
-    responsive: true
-  };
-  public lineChartColors: Color[] = [
-    {
-      borderColor: 'black',
-      backgroundColor: 'rgba(255,0,0,0.3)',
-    },
-  ];
-  public lineChartLegend = true;
-  public lineChartType = 'line';
-  public lineChartPlugins = [];
-
-  investmentProjection: InvestedProjections
+  constructor() { }
 
   updatedValues(formValues: InvestmentDetails) {
-    let data: InvestedProjections = this.projectionsService.procectionsFrom(formValues);
-
-    this.investmentProjection = data
-    this.totalAmountData = [
-      { data: data.total.monthly, label: data.total.description },
-      { data: data.saved.monthly, label: data.saved.description },
-      { data: data.invested.monthly, label: data.invested.description },
-    ]
-    this.earningsData = [
-      { data: data.total.monthlyEarning, label: data.total.description },
-      { data: data.saved.monthlyEarning, label: data.saved.description },
-      { data: data.invested.monthlyEarning, label: data.invested.description },
-    ]
-
-    this.lineChartLabels = this.generateLabels(data.total.monthly.length);
+    this.investmentDetails = formValues;
+    if (this.projectionGraphs != null && this.projectionGraphs != undefined) {
+      this.projectionGraphs.updatedValues(formValues)
+    }
   }
 
-  generateLabels(count: number) : Array<string>  {
-    let labels: Array<string> = []
-    for(var i = 0; i < count; i++) {
-      labels.push(`${i + 1}`)
-    }
-    return labels
+  ngAfterViewInit() {
+    console.log(this.projectionGraphs)
+    console.log(this.investmentDetails)
+    this.projectionGraphs.updatedValues(this.investmentDetails);
   }
 }

@@ -11,6 +11,7 @@ import { MatTooltipModule, MatInputModule, MatFormFieldModule } from '@angular/m
 import { InvestmentValuesFormComponent } from './investment-values-form/investment-values-form.component'
 
 import { ChartsModule } from 'ng2-charts';
+import { ProjectionGraphsComponent } from './projection-graphs/projection-graphs.component';
 
 const modules = [
   MatInputModule,
@@ -21,10 +22,10 @@ const modules = [
 @NgModule({
   declarations: [
     AppComponent,
-    InvestmentValuesFormComponent
+    InvestmentValuesFormComponent,
+    ProjectionGraphsComponent
   ],
   exports: [
-    ...modules
   ],
   imports: [
     ...modules,

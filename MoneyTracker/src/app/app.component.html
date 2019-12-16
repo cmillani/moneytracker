@@ -6,6 +6,10 @@
     ></app-investment-values-form>
     <div class="col-8">
       <div class="row">
+        <strong class="col">Total</strong>
+        <strong class="col">Rendimentos Mensais</strong>
+      </div>
+      <div class="row">
         <div class="col">
           <canvas
             baseChart
@@ -39,22 +43,31 @@
       </div>
       <div class="row">
         <div class="col">
+          <strong class="row">Montante Total</strong>
           <div class="row">
             <p class="col"> <strong>{{investmentProjection.total.description}}:</strong> {{investmentProjection.total.total}} </p>
             <p class="col"> <strong>{{investmentProjection.invested.description}}:</strong> {{investmentProjection.invested.total}} </p>
             <p class="col"> <strong>{{investmentProjection.saved.description}}:</strong> {{investmentProjection.saved.total}} </p>
           </div>
+          <strong class="row">Investido</strong>
           <div class="row">
             <p class="col"> <strong>{{investmentProjection.total.description}}:</strong> {{investmentProjection.total.original}} </p>
             <p class="col"> <strong>{{investmentProjection.invested.description}}:</strong> {{investmentProjection.invested.original}} </p>
             <p class="col"> <strong>{{investmentProjection.saved.description}}:</strong> {{investmentProjection.saved.original}} </p>
           </div>
-        </div>
-        <div class="col">
+          <strong class="row">Rendimento Bruto</strong>
           <div class="row">
             <p class="col"> <strong>{{investmentProjection.total.description}}:</strong> {{investmentProjection.total.gainings}} </p>
             <p class="col"> <strong>{{investmentProjection.invested.description}}:</strong> {{investmentProjection.invested.gainings}} </p>
             <p class="col"> <strong>{{investmentProjection.saved.description}}:</strong> {{investmentProjection.saved.gainings}} </p>
+          </div>
+        </div>
+        <div class="col">
+          <strong class="row">Rendimento Mensal Final</strong>
+          <div class="row">
+            <p class="col"> <strong>{{investmentProjection.total.description}}:</strong> {{investmentProjection.total.finalMonthlyEarning}} </p>
+            <p class="col"> <strong>{{investmentProjection.invested.description}}:</strong> {{investmentProjection.invested.finalMonthlyEarning}} </p>
+            <p class="col"> <strong>{{investmentProjection.saved.description}}:</strong> {{investmentProjection.saved.finalMonthlyEarning}} </p>
           </div>
         </div>
       </div>

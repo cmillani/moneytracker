@@ -6,33 +6,27 @@
                 [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
                 [chartType]="lineChartType" [plugins]="lineChartPlugins">
             </canvas>
-            <strong class="row">Montante Total</strong>
-            <div class="row">
-                <p class="col"> <strong>{{investmentProjection.total.description}}:</strong>
-                    {{investmentProjection.total.total}} </p>
-                <p class="col"> <strong>{{investmentProjection.invested.description}}:</strong>
-                    {{investmentProjection.invested.total}} </p>
-                <p class="col"> <strong>{{investmentProjection.saved.description}}:</strong>
-                    {{investmentProjection.saved.total}} </p>
-            </div>
-            <strong class="row">Investido</strong>
-            <div class="row">
-                <p class="col"> <strong>{{investmentProjection.total.description}}:</strong>
-                    {{investmentProjection.total.original}} </p>
-                <p class="col"> <strong>{{investmentProjection.invested.description}}:</strong>
-                    {{investmentProjection.invested.original}} </p>
-                <p class="col"> <strong>{{investmentProjection.saved.description}}:</strong>
-                    {{investmentProjection.saved.original}} </p>
-            </div>
-            <strong class="row">Rendimento Bruto</strong>
-            <div class="row">
-                <p class="col"> <strong>{{investmentProjection.total.description}}:</strong>
-                    {{investmentProjection.total.gainings}} </p>
-                <p class="col"> <strong>{{investmentProjection.invested.description}}:</strong>
-                    {{investmentProjection.invested.gainings}} </p>
-                <p class="col"> <strong>{{investmentProjection.saved.description}}:</strong>
-                    {{investmentProjection.saved.gainings}} </p>
-            </div>
+            <table style="width: 100%;" mat-table [dataSource]="investmentProjection.investments">
+                <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef> Descrição </th>
+                    <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                </ng-container>
+                <ng-container matColumnDef="total">
+                    <th mat-header-cell *matHeaderCellDef> Total </th>
+                    <td mat-cell *matCellDef="let element"> {{element.total}} </td>
+                </ng-container>
+                <ng-container matColumnDef="original">
+                    <th mat-header-cell *matHeaderCellDef> Original </th>
+                    <td mat-cell *matCellDef="let element"> {{element.original}} </td>
+                </ng-container>
+                <ng-container matColumnDef="gainings">
+                    <th mat-header-cell *matHeaderCellDef> Ganhos </th>
+                    <td mat-cell *matCellDef="let element"> {{element.gainings}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="totalColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: totalColumns;"></tr>
+            </table>
         </div>
         <div class="col">
             <strong>Rendimentos Mensais</strong>
@@ -41,14 +35,19 @@
                 [chartType]="lineChartType" [plugins]="lineChartPlugins">
             </canvas>
             <strong class="row">Rendimento Mensal Final</strong>
-            <div class="row">
-                <p class="col"> <strong>{{investmentProjection.total.description}}:</strong>
-                    {{investmentProjection.total.finalMonthlyEarning}} </p>
-                <p class="col"> <strong>{{investmentProjection.invested.description}}:</strong>
-                    {{investmentProjection.invested.finalMonthlyEarning}} </p>
-                <p class="col"> <strong>{{investmentProjection.saved.description}}:</strong>
-                    {{investmentProjection.saved.finalMonthlyEarning}} </p>
-            </div>
+            <table style="width: 100%;" mat-table [dataSource]="investmentProjection.investments">
+                <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef> Descrição </th>
+                    <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                </ng-container>
+                <ng-container matColumnDef="monthly">
+                    <th mat-header-cell *matHeaderCellDef> Renda Mensal Final </th>
+                    <td mat-cell *matCellDef="let element"> {{element.finalMonthlyEarning}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="monthlyColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: monthlyColumns;"></tr>
+            </table>
         </div>
     </div>
 </div>

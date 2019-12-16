@@ -1,82 +1,34 @@
-<div>
-  <h1 matTooltip="Tempo a ser utilizado para a base de cálculos.">
-    Tempo
-  </h1>
-</div>
-<div>
-  <mat-form-field>
-    <input
-      matInput
-      type="number"
-      id="numberOfYears"
-      placeholder="Anos"
-      [(ngModel)]="formDetails.numberOfYears"
-      (change)="updatedValue()"
-    />
-  </mat-form-field>
-</div>
-
-<div>
-  <h1
-    matTooltip="Esses valores serão depositados mensalmente, um em uma conta de
-        reserva com rendimento baixo (como 100% CDI), outro será investido com
-        rendimento superior."
-  >
-    Investimento Mensal
-  </h1>
-</div>
-<div>
-  <mat-form-field>
-    <input
-      matInput
-      type="number"
-      id="monthlySavings"
-      placeholder="Economia"
-      [(ngModel)]="formDetails.monthlySavings"
-      (change)="updatedValue()"
-    />
-  </mat-form-field>
-
-  <mat-form-field>
-    <input
-      matInput
-      type="number"
-      id="monthlyInvested"
-      placeholder="Investimento"
-      [(ngModel)]="formDetails.monthlyInvestment"
-      (change)="updatedValue()"
-    />
-  </mat-form-field>
-</div>
-
-<div>
-  <h1
-    matTooltip="Rendimentos esperados ao mes para as economias e os investimentos."
-  >
-    Rendimentos
-  </h1>
-</div>
-
-<div>
-  <mat-form-field>
-    <input
-      matInput
-      type="number"
-      id="savingsInterest"
-      placeholder="Economia"
-      [(ngModel)]="formDetails.savingsInterest"
-      (change)="updatedValue()"
-    />
-  </mat-form-field>
-
-  <mat-form-field>
-    <input
-      matInput
-      type="number"
-      id="investmentInterest"
-      placeholder="Investimento"
-      [(ngModel)]="formDetails.investmentInterest"
-      (change)="updatedValue()"
-    />
-  </mat-form-field>
+<div class="col">
+  <div class="row">
+    <div class="col">
+      <mat-form-field matTooltip="Nome do investimento">
+        <input matInput type="text" placeholder="Descrição" [(ngModel)]="formDetails.description"
+          (change)="updatedValue()" />
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field matTooltip="Tempo a ser utilizado para a base de cálculos desse investimento.">
+        <input matInput type="number" placeholder="Duração" [(ngModel)]="formDetails.numberOfYears"
+          (change)="updatedValue()" />
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field matTooltip="Valor colocado inicialmente.">
+        <input matInput type="number" id="numberOfYears" placeholder="Aporte Inicial"
+          [(ngModel)]="formDetails.initialValue" (change)="updatedValue()" />
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field matTooltip="Valor a ser depositado mensalmente nesse investimento">
+        <input matInput mask="separator.2" thousandSeparator="." type="text" placeholder="Aporte Mensal"
+          [(ngModel)]="formDetails.monthlyValue" (change)="updatedValue()" />
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field matTooltip="Rendimento mensal em porcentagem">
+        <input mask="percent" suffix="%" step="0.1" matInput type="text" placeholder="Rendimentos"
+          [(ngModel)]="formDetails.interest" (change)="updatedValue()" />
+      </mat-form-field>
+    </div>
+  </div>
 </div>

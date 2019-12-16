@@ -1,17 +1,14 @@
 import { ValueProjectionData } from './value-projection-data';
 
 export class InvestedProjections {
-  saved: ValueProjectionData;
-  invested: ValueProjectionData;
+  investments: Array<ValueProjectionData>;
   total: ValueProjectionData;
 
   constructor(
-    saved: ValueProjectionData,
-    invested: ValueProjectionData,
+    investments: Array<ValueProjectionData>,
     total: ValueProjectionData
   ) {
-    this.saved = saved;
-    this.invested = invested;
+    this.investments = [...investments, total];
     this.total = total;
   }
 }

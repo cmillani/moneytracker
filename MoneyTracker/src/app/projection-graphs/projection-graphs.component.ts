@@ -40,6 +40,9 @@ export class ProjectionGraphsComponent implements OnInit {
   public lineChartType = 'line';
   public lineChartPlugins = [];
 
+  totalColumns: string[] = ['description', 'total', 'original', 'gainings'];
+  monthlyColumns: string[] = ['description', 'monthly'];
+
   ngOnInit() {
   }
 
@@ -52,18 +55,18 @@ export class ProjectionGraphsComponent implements OnInit {
   }
 
   updatedValues(formValues: InvestmentDetails) {
-    let data: InvestedProjections = this.projectionsService.procectionsFrom(formValues);
+    let data: InvestedProjections = this.projectionsService.projectionsFrom([formValues]);
 
     this.investmentProjection = data
     this.totalAmountData = [
       { data: data.total.monthly, label: data.total.description },
-      { data: data.saved.monthly, label: data.saved.description },
-      { data: data.invested.monthly, label: data.invested.description },
+      // { data: data.saved.monthly, label: data.saved.description },
+      // { data: data.invested.monthly, label: data.invested.description },
     ]
     this.earningsData = [
       { data: data.total.monthlyEarning, label: data.total.description },
-      { data: data.saved.monthlyEarning, label: data.saved.description },
-      { data: data.invested.monthlyEarning, label: data.invested.description },
+      // { data: data.saved.monthlyEarning, label: data.saved.description },
+      // { data: data.invested.monthlyEarning, label: data.invested.description },
     ]
 
     this.lineChartLabels = this.generateLabels(data.total.monthly.length);

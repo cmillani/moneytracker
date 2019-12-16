@@ -1,7 +1,7 @@
 export class InvestmentDetails {
+  description: string = "Investimento"
   numberOfYears: number = 10;
-  monthlySavings: number = 1000;
-  monthlyInvestment: number = 1000;
-  savingsInterest: number = 0.005;
-  investmentInterest: number = 0.005 * 1.24;
+  initialValue: number = 0;
+  monthlyValue: number = 1000;
+  interest: number = 0.5;
 }

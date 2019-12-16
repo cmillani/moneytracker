@@ -7,40 +7,31 @@ import { InvestmentDetails } from "./investment-details"
   providedIn: "root"
 })
 export class ProjectionsService {
-  constructor() {}
+  constructor() { }
 
-  procectionsFrom(details: InvestmentDetails): InvestedProjections {
-    let numberOfMonths: number = details.numberOfYears * 12;
-    let saved = this.projectionFrom(
-      "Reserva",
-      details.monthlySavings,
-      details.savingsInterest,
-      numberOfMonths
-    );
-    let invested = this.projectionFrom(
-      "Investimento",
-      details.monthlyInvestment,
-      details.investmentInterest,
-      numberOfMonths
-    );
+  projectionsFrom(details: [InvestmentDetails]): InvestedProjections {
+    let projections: Array<ValueProjectionData> = []
+    for (let detail of details) {
+      projections.push(this.projectionFrom(detail))
+    }
 
-    let total = this.totalFrom([saved, invested]);
+    let total = this.totalFrom(projections);
 
-    return new InvestedProjections(saved, invested, total);
+    return new InvestedProjections(projections, total);
   }
 
   private projectionFrom(
-    description: string,
-    monthlyDeposit: number,
-    interest: number,
-    numberOfMonths: number
+    details: InvestmentDetails
   ): ValueProjectionData {
     let monthly: Array<number> = [];
     let monthlyEarning: Array<number> = [];
 
+    let numberOfMonths: number = details.numberOfYears * 12;
+    let interest: number = details.interest / 100;
+
     var accumulator: number = 0;
     for (var i = 0; i < numberOfMonths; i++) {
-      accumulator += monthlyDeposit;
+      accumulator += details.monthlyValue;
       let newValue: number = accumulator * (1 + interest);
       monthly.push(newValue);
       let earning: number = newValue - accumulator;
@@ -49,7 +40,7 @@ export class ProjectionsService {
     }
 
     let total = accumulator;
-    let original = monthlyDeposit * numberOfMonths;
+    let original = details.monthlyValue * numberOfMonths;
     let gainings = total - original;
     let gainingPercentage = (gainings / original) * 100;
 
@@ -60,7 +51,7 @@ export class ProjectionsService {
       original,
       gainings,
       gainingPercentage,
-      description
+      details.description
     );
   }
 

@@ -23,8 +23,6 @@ export class AppComponent implements AfterViewInit{
   }
 
   ngAfterViewInit() {
-    console.log(this.projectionGraphs)
-    console.log(this.investmentDetails)
     this.projectionGraphs.updatedValues(this.investmentDetails);
   }
 }

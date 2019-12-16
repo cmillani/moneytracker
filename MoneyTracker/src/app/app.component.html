@@ -1,3 +1,4 @@
+<br>
 <div class="container">
   <div class="row">
     <app-investment-values-form
@@ -6,11 +7,8 @@
     ></app-investment-values-form>
     <div class="col-8">
       <div class="row">
-        <strong class="col">Total</strong>
-        <strong class="col">Rendimentos Mensais</strong>
-      </div>
-      <div class="row">
         <div class="col">
+          <strong>Total</strong>
           <canvas
             baseChart
             width="200"
@@ -24,25 +22,6 @@
             [plugins]="lineChartPlugins"
           >
           </canvas>
-        </div>
-        <div class="col">
-          <canvas
-            baseChart
-            width="200"
-            height="200"
-            [datasets]="earningsData"
-            [labels]="lineChartLabels"
-            [options]="lineChartOptions"
-            [colors]="lineChartColors"
-            [legend]="lineChartLegend"
-            [chartType]="lineChartType"
-            [plugins]="lineChartPlugins"
-          >
-          </canvas>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
           <strong class="row">Montante Total</strong>
           <div class="row">
             <p class="col"> <strong>{{investmentProjection.total.description}}:</strong> {{investmentProjection.total.total}} </p>
@@ -63,6 +42,20 @@
           </div>
         </div>
         <div class="col">
+          <strong>Rendimentos Mensais</strong>
+          <canvas
+            baseChart
+            width="200"
+            height="200"
+            [datasets]="earningsData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            [plugins]="lineChartPlugins"
+          >
+          </canvas>
           <strong class="row">Rendimento Mensal Final</strong>
           <div class="row">
             <p class="col"> <strong>{{investmentProjection.total.description}}:</strong> {{investmentProjection.total.finalMonthlyEarning}} </p>

@@ -9,13 +9,16 @@ import { InvestmentDetails } from "./investment-details"
 export class ProjectionsService {
   constructor() { }
 
-  projectionsFrom(details: [InvestmentDetails]): InvestedProjections {
+  projectionsFrom(details: Array<InvestmentDetails>): InvestedProjections {
     let projections: Array<ValueProjectionData> = []
     for (let detail of details) {
       projections.push(this.projectionFrom(detail))
     }
 
-    let total = this.totalFrom(projections);
+    let total: ValueProjectionData?
+    if (projections.length > 0) {
+      total = this.totalFrom(projections);
+    }
 
     return new InvestedProjections(projections, total);
   }
@@ -27,11 +30,11 @@ export class ProjectionsService {
     let monthlyEarning: Array<number> = [];
 
     let numberOfMonths: number = details.numberOfYears * 12;
-    let interest: number = details.interest / 100;
+    let interest: number = parseFloat(details.interest) / 100;
 
-    var accumulator: number = 0;
+    var accumulator: number = parseFloat(details.initialValue);
     for (var i = 0; i < numberOfMonths; i++) {
-      accumulator += details.monthlyValue;
+      accumulator += parseFloat(details.monthlyValue);
       let newValue: number = accumulator * (1 + interest);
       monthly.push(newValue);
       let earning: number = newValue - accumulator;
@@ -40,7 +43,7 @@ export class ProjectionsService {
     }
 
     let total = accumulator;
-    let original = details.monthlyValue * numberOfMonths;
+    let original = parseFloat(details.monthlyValue) * numberOfMonths + parseFloat(details.initialValue);;
     let gainings = total - original;
     let gainingPercentage = (gainings / original) * 100;
 
@@ -61,11 +64,12 @@ export class ProjectionsService {
     let description = "Total";
 
     let projectionsCount: number = projections.length;
-    let numberOfMonths: number = projections[0].monthly.length;
 
     if (!(projectionsCount > 0)) {
       throw "Missing Data";
     }
+
+    let numberOfMonths: number = projections[0].monthly.length;
 
     let total = 0;
     let original = 0;

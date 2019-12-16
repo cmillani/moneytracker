@@ -11,18 +11,18 @@ export class AppComponent implements AfterViewInit{
 
   title = 'MoneyTracker';
   @ViewChild(ProjectionGraphsComponent, {static: false}) projectionGraphs: ProjectionGraphsComponent;
-  investmentDetails: InvestmentDetails = new InvestmentDetails();
+  investments: Array<InvestmentDetails> = [];
 
   constructor() { }
 
-  updatedValues(formValues: InvestmentDetails) {
-    this.investmentDetails = formValues;
+  updatedValues(investments: Array<InvestmentDetails>) {
+    this.investments = investments;
     if (this.projectionGraphs != null && this.projectionGraphs != undefined) {
-      this.projectionGraphs.updatedValues(formValues)
+      this.projectionGraphs.updatedValues(investments)
     }
   }
 
   ngAfterViewInit() {
-    this.projectionGraphs.updatedValues(this.investmentDetails);
+    this.projectionGraphs.updatedValues(this.investments);
   }
 }

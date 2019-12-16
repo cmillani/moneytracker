@@ -2,33 +2,36 @@
   <div class="row">
     <div class="col">
       <mat-form-field matTooltip="Nome do investimento">
-        <input matInput type="text" placeholder="Descrição" [(ngModel)]="formDetails.description"
-          (change)="updatedValue()" />
+        <input style="max-width: 100px;" matInput type="text" placeholder="Descrição"
+          [(ngModel)]="formDetails.description" />
       </mat-form-field>
     </div>
     <div class="col">
-      <mat-form-field matTooltip="Tempo a ser utilizado para a base de cálculos desse investimento.">
-        <input matInput type="number" placeholder="Duração" [(ngModel)]="formDetails.numberOfYears"
-          (change)="updatedValue()" />
+      <mat-form-field style="max-width: 75px;"
+        matTooltip="Tempo a ser utilizado para a base de cálculos desse investimento.">
+        <input matInput type="number" placeholder="Duração" [(ngModel)]="formDetails.numberOfYears" />
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field matTooltip="Valor colocado inicialmente.">
-        <input matInput type="number" id="numberOfYears" placeholder="Aporte Inicial"
-          [(ngModel)]="formDetails.initialValue" (change)="updatedValue()" />
+        <input matInput mask="separator.2" thousandSeparator="." type="text" id="numberOfYears"
+          placeholder="Aporte Inicial" [(ngModel)]="formDetails.initialValue" />
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field matTooltip="Valor a ser depositado mensalmente nesse investimento">
         <input matInput mask="separator.2" thousandSeparator="." type="text" placeholder="Aporte Mensal"
-          [(ngModel)]="formDetails.monthlyValue" (change)="updatedValue()" />
+          [(ngModel)]="formDetails.monthlyValue" />
       </mat-form-field>
     </div>
     <div class="col">
-      <mat-form-field matTooltip="Rendimento mensal em porcentagem">
-        <input mask="percent" suffix="%" step="0.1" matInput type="text" placeholder="Rendimentos"
-          [(ngModel)]="formDetails.interest" (change)="updatedValue()" />
+      <mat-form-field style="max-width: 75px;" matTooltip="Rendimento mensal em porcentagem">
+        <input mask="separator.2" suffix="%" matInput type="text" placeholder="Rendimentos"
+          [(ngModel)]="formDetails.interest" />
       </mat-form-field>
+    </div>
+    <div class="col">
+      <button mat-stroked-button (click)="addNewInvestment()">Adicionar</button>
     </div>
   </div>
 </div>

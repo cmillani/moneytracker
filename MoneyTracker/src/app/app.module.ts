@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatTooltipModule, MatInputModule, MatFormFieldModule, MatTableModule } from '@angular/material';
+import { MatTooltipModule, MatInputModule, MatFormFieldModule, MatTableModule, MatButtonModule } from '@angular/material';
 import { InvestmentValuesFormComponent } from './investment-values-form/investment-values-form.component'
 
 import { ChartsModule } from 'ng2-charts';
@@ -21,6 +21,7 @@ const modules = [
   MatFormFieldModule,
   MatTooltipModule,
   MatTableModule,
+  MatButtonModule,
   NgxMaskModule.forRoot(options)
 ]
 

@@ -11,14 +11,17 @@ export class InvestmentValuesFormComponent implements OnInit {
   constructor() { }
 
   formDetails: InvestmentDetails = new InvestmentDetails();
-  @Output() formDetailsEmitter: EventEmitter<InvestmentDetails> = new EventEmitter<InvestmentDetails>();
+  investments: Array<InvestmentDetails> = []
+  @Output() formDetailsEmitter: EventEmitter<Array<InvestmentDetails>> = new EventEmitter<Array<InvestmentDetails>>();
 
   ngOnInit() {
-    this.formDetailsEmitter.emit(this.formDetails);
+    this.formDetailsEmitter.emit([]);
   }
 
-  updatedValue() {
-    this.formDetailsEmitter.emit(this.formDetails);
+  addNewInvestment() {
+    this.investments.push(this.formDetails);
+    this.formDetails = new InvestmentDetails();
+    this.formDetailsEmitter.emit(this.investments);
   }
 
 }

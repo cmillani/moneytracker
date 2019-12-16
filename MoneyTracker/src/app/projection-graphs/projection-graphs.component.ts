@@ -17,7 +17,6 @@ export class ProjectionGraphsComponent implements OnInit {
   
   constructor(projectionsService : ProjectionsService) { 
     this.projectionsService = projectionsService;
-    this.updatedValues(new InvestmentDetails());
   }
 
   public totalAmountData: ChartDataSets[] = [
@@ -54,19 +53,21 @@ export class ProjectionGraphsComponent implements OnInit {
     return labels
   }
 
-  updatedValues(formValues: InvestmentDetails) {
-    let data: InvestedProjections = this.projectionsService.projectionsFrom([formValues]);
+  updatedValues(investments: Array<InvestmentDetails>) {
+    if (!(investments.length > 0)) {
+      return
+    }
 
+    let data: InvestedProjections = this.projectionsService.projectionsFrom(investments);
+    
     this.investmentProjection = data
     this.totalAmountData = [
+      ...data.investments.map(investment => {return {data: investment.monthly, label: investment.description}}),
       { data: data.total.monthly, label: data.total.description },
-      // { data: data.saved.monthly, label: data.saved.description },
-      // { data: data.invested.monthly, label: data.invested.description },
     ]
     this.earningsData = [
+      ...data.investments.map(investment => {return {data: investment.monthlyEarning, label: investment.description}}),
       { data: data.total.monthlyEarning, label: data.total.description },
-      // { data: data.saved.monthlyEarning, label: data.saved.description },
-      // { data: data.invested.monthlyEarning, label: data.invested.description },
     ]
 
     this.lineChartLabels = this.generateLabels(data.total.monthly.length);

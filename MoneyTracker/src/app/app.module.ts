@@ -13,7 +13,8 @@ import { InvestmentValuesFormComponent } from './investment-values-form/investme
 import { ChartsModule } from 'ng2-charts';
 import { ProjectionGraphsComponent } from './projection-graphs/projection-graphs.component';
 
-import { NgxMaskModule, IConfig} from 'ngx-mask'
+import { NgxMaskModule, IConfig} from 'ngx-mask';
+import { InvestmentListComponent } from './investment-list/investment-list.component'
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {} = {};;
 
 const modules = [
@@ -29,7 +30,8 @@ const modules = [
   declarations: [
     AppComponent,
     InvestmentValuesFormComponent,
-    ProjectionGraphsComponent
+    ProjectionGraphsComponent,
+    InvestmentListComponent
   ],
   exports: [
   ],

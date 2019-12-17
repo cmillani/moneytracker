@@ -16,7 +16,8 @@ export class AppComponent implements AfterViewInit{
   constructor() { }
 
   updatedValues(investments: Array<InvestmentDetails>) {
-    this.investments = investments;
+    this.investments = [...investments];
+    // this.investments = investments;
     if (this.projectionGraphs != null && this.projectionGraphs != undefined) {
       this.projectionGraphs.updatedValues(investments)
     }

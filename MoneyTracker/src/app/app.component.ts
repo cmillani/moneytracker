@@ -1,6 +1,6 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { InvestmentDetails } from './investment-details';
 import { ProjectionGraphsComponent } from './projection-graphs/projection-graphs.component';
+import { InvestmentListComponent } from './investment-list/investment-list.component';
 
 @Component({
   selector: 'app-root',
@@ -11,19 +11,17 @@ export class AppComponent implements AfterViewInit{
 
   title = 'MoneyTracker';
   @ViewChild(ProjectionGraphsComponent, {static: false}) projectionGraphs: ProjectionGraphsComponent;
-  investments: Array<InvestmentDetails> = [];
+  @ViewChild(InvestmentListComponent, {static: false}) investmentList: InvestmentListComponent;
 
   constructor() { }
 
-  updatedValues(investments: Array<InvestmentDetails>) {
-    this.investments = [...investments];
-    // this.investments = investments;
-    if (this.projectionGraphs != null && this.projectionGraphs != undefined) {
-      this.projectionGraphs.updatedValues(investments)
-    }
+  updatedValues() {
+    this.projectionGraphs.reloadData();
+    this.investmentList.reloadData();
   }
 
   ngAfterViewInit() {
-    this.projectionGraphs.updatedValues(this.investments);
+    this.projectionGraphs.reloadData();
+    this.investmentList.reloadData();
   }
 }

@@ -15,9 +15,11 @@ export class ProjectionsService {
       projections.push(this.projectionFrom(detail))
     }
 
-    let total: ValueProjectionData?
+    let total: ValueProjectionData
     if (projections.length > 0) {
       total = this.totalFrom(projections);
+    } else {
+      total = new ValueProjectionData([], [], 0, 0, 0, 0, "Total")
     }
 
     return new InvestedProjections(projections, total);

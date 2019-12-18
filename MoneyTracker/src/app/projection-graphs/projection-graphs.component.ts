@@ -4,6 +4,7 @@ import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { InvestmentDetails } from '../investment-details';
 import { InvestedProjections } from '../invested-projections';
+import { InvestmentListService } from '../investment-list.service';
 
 @Component({
   selector: 'app-projection-graphs',
@@ -12,11 +13,15 @@ import { InvestedProjections } from '../invested-projections';
 })
 export class ProjectionGraphsComponent implements OnInit {
 
-  projectionsService: ProjectionsService
-  investmentProjection: InvestedProjections
+  projectionsService: ProjectionsService;
+  investmentListService: InvestmentListService;
+
+  investmentProjection: InvestedProjections;
   
-  constructor(projectionsService : ProjectionsService) { 
+  constructor(projectionsService : ProjectionsService, investmentListService: InvestmentListService) { 
     this.projectionsService = projectionsService;
+    this.investmentListService = investmentListService;
+    this.investmentProjection = this.projectionsService.projectionsFrom([]);
   }
 
   public totalAmountData: ChartDataSets[] = [
@@ -43,6 +48,11 @@ export class ProjectionGraphsComponent implements OnInit {
   monthlyColumns: string[] = ['description', 'monthly'];
 
   ngOnInit() {
+    this.reloadData();
+  }
+
+  reloadData() {
+    this.updatedValues(this.investmentListService.getAll());
   }
 
   generateLabels(count: number) : Array<string>  {
@@ -54,10 +64,6 @@ export class ProjectionGraphsComponent implements OnInit {
   }
 
   updatedValues(investments: Array<InvestmentDetails>) {
-    if (!(investments.length > 0)) {
-      return
-    }
-
     let data: InvestedProjections = this.projectionsService.projectionsFrom(investments);
     
     this.investmentProjection = data

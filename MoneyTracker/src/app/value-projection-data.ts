@@ -24,6 +24,10 @@ export class ValueProjectionData {
     this.gainings = gainings.roundTo2Places();
     this.gainingPercentage = gainingPercentage.roundTo2Places();
     this.description = description;
-    this.finalMonthlyEarning = monthlyEarning[monthlyEarning.length - 1].roundTo2Places();
+    if (monthlyEarning.length > 0) {
+      this.finalMonthlyEarning = monthlyEarning[monthlyEarning.length - 1].roundTo2Places();
+    } else {
+      this.finalMonthlyEarning = 0.00;
+    }
   }
 }

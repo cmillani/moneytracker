@@ -1,16 +1,38 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { MatTableDataSource } from '@angular/material';
 import { InvestmentDetails } from '../investment-details';
+import { InvestmentListService } from '../investment-list.service';
 
 @Component({
   selector: 'app-investment-list',
   templateUrl: './investment-list.component.html',
   styleUrls: ['./investment-list.component.css']
 })
-export class InvestmentListComponent {
+export class InvestmentListComponent implements OnInit {
 
-  @Input() investmentList: Array<InvestmentDetails> = [];
+  @Output() investmentListEmitter: EventEmitter<void> = new EventEmitter<void>();
 
-  investmentsRows = ["description", "years", "initial", "monthly", "interest"];
+  investmentList: Array<InvestmentDetails> = [new InvestmentDetails()];
+  dataSource: MatTableDataSource<InvestmentDetails> = new MatTableDataSource<InvestmentDetails>(this.investmentList);
 
-  constructor() { }
+  investmentsRows = ["description", "years", "initial", "monthly", "interest", "delete"];
+  investmentListService: InvestmentListService
+
+  constructor(investmentListService: InvestmentListService) {
+    this.investmentListService = investmentListService;
+  }
+
+  reloadData() {
+    this.dataSource.data = this.investmentListService.getAll();
+  }
+
+  deleteRow(element: InvestmentDetails) {
+    this.investmentListService.remove(element);
+    this.investmentListEmitter.emit();
+    this.reloadData();
+  }
+
+  ngOnInit() {
+    this.reloadData();
+  }
 }

@@ -1,0 +1,41 @@
+<mat-toolbar class="app-header">
+  <span class="app-title">Money Tracker</span>
+</mat-toolbar>
+<mat-sidenav-container class="app-container">
+  <mat-sidenav #sidenav mode="side" opened class="app-sidenav">
+    <button
+      mat-stroked-button
+      class="menu-button"
+      routerLink="/"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Visão Geral
+    </button>
+    <button
+      mat-stroked-button
+      class="menu-button"
+      routerLink="/profile"
+      routerLinkActive="active-link"
+    >
+      Perfil
+    </button>
+    <button
+      mat-stroked-button
+      class="menu-button"
+      routerLink="/investments"
+      routerLinkActive="active-link"
+    >
+      Investimentos
+    </button>
+    <button
+      mat-stroked-button
+      class="menu-button"
+      routerLink="/goals"
+      routerLinkActive="active-link"
+    >
+      Metas
+    </button>
+  </mat-sidenav>
+  <mat-sidenav-content><router-outlet></router-outlet></mat-sidenav-content>
+</mat-sidenav-container>

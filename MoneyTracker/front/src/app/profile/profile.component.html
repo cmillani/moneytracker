@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="row">
+    <h6>Salário e Investimento</h6>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field matTooltip="Salário">
+        <input
+          matInput
+          type="number"
+          placeholder="Salário"
+          [(ngModel)]="profile.wage"
+          (change)="updatedProfile()"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field
+        matTooltip="Valor reservado do salário a ser investido mensalmente"
+      >
+        <input
+          matInput
+          type="number"
+          placeholder="Reservado para Investimentos"
+          [(ngModel)]="profile.desiredSavings"
+          (change)="updatedProfile()"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-divider style="margin: 10px 0 10px 0;"></mat-divider>
+  <div class="row">
+    <h6>Despesas Fixas</h6>
+  </div>
+  <div class="row align-items-center">
+    <div class="col-2">
+      <mat-form-field matTooltip="Nome da despesa">
+        <input
+          matInput
+          type="text"
+          placeholder="Nome da Despesa"
+          [(ngModel)]="expense.name"
+        />
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+      <mat-form-field matTooltip="Valor de uma nova despesa recorrente">
+        <input
+          matInput
+          type="number"
+          placeholder="Valor da Despesa"
+          [(ngModel)]="expense.value"
+        />
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+      <button mat-stroked-button (click)="addExpense()">
+        Adicionar
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table style="width: 100%;" mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Nome</th>
+          <td mat-cell *matCellDef="let element" style="white-space: nowrap; padding-right: 20px;">{{ element.name }}</td>
+        </ng-container>
+        <ng-container matColumnDef="value">
+          <th mat-header-cell *matHeaderCellDef style="width: 100%;">Valor</th>
+          <td mat-cell *matCellDef="let element">{{ element.value }}</td>
+        </ng-container>
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef style="width: 100px;"> </th>
+          <td mat-cell *matCellDef="let element; let i = index">
+              <button mat-stroked-button (click)="deleteRow(element)">
+                  <mat-icon>delete</mat-icon>
+              </button>
+          </td>
+      </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="expensesRows"></tr>
+        <tr mat-row *matRowDef="let row; columns: expensesRows"></tr>
+      </table>
+    </div>
+  </div>
+  <mat-divider style="margin: 10px 0 10px 0;"></mat-divider>
+  <div class="row">
+    <h6>Restante</h6>
+  </div>
+  <div class="row">
+    <div class="col">
+      {{profileService.remainingValueFor(profile) | currency:'BRL'}}
+    </div>
+  </div>
+</div>

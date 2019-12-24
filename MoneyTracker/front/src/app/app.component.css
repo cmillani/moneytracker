@@ -1,0 +1,36 @@
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.app-container {
+    position: absolute;
+    top: 60px;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    padding-top: 20px;
+    padding-bottom: 60px;
+  }
+
+.app-sidenav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+}
+
+.active-link {
+  border-color: darkslateblue;
+}
+
+.menu-button {
+  width: Calc( 100% - 10px );
+  margin: 5px;
+}
+
+.app-title {
+  margin-left: 200px;
+}

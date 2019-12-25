@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { InvestmentDetails } from "../models/investment-details";
 import { InvestmentRepositoryService } from "../repositories/investment-repository.service";
+import { ProfileService } from "./profile.service"
 
 @Injectable({
   providedIn: "root"
@@ -8,11 +9,12 @@ import { InvestmentRepositoryService } from "../repositories/investment-reposito
 export class InvestmentListService {
   private investmentList: Array<InvestmentDetails> = [];
 
-  investmentRepository: InvestmentRepositoryService
+  constructor(public investmentRepository: InvestmentRepositoryService, public profileService: ProfileService) {
+    this.investmentList = investmentRepository.getInvestments();
+  }
 
-  constructor(investmentRepository: InvestmentRepositoryService) {
-    this.investmentRepository = investmentRepository;
-    this.investmentList = this.investmentRepository.getInvestments();
+  valueAvailable(): number {
+    return this.profileService.getProfile().desiredSavings - this.investmentList.reduce((acc, element) => acc + parseFloat(element.monthlyValue) ,0)
   }
 
   getAll(): Array<InvestmentDetails> {

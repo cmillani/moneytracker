@@ -1,9 +1,5 @@
 import { Component, Inject } from "@angular/core";
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA
-} from "@angular/material/dialog";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { InvestmentDetails } from "../../models/investment-details";
 
 @Component({
@@ -12,13 +8,12 @@ import { InvestmentDetails } from "../../models/investment-details";
   styleUrls: ["./edit-investment-modal.component.css"]
 })
 export class EditInvestmentModalComponent {
-  public editingInvestment: InvestmentDetails
+  public editingInvestment: InvestmentDetails;
 
   constructor(
     public dialogRef: MatDialogRef<EditInvestmentModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: InvestmentDetails
   ) {
-    console.log(data);
     this.editingInvestment = Object.assign({}, data);
   }
 

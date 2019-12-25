@@ -15,13 +15,9 @@ export class ProfileComponent {
   private profileService: ProfileService;
   private expense: RecurringExpense;
 
-  dataSource: MatTableDataSource<RecurringExpense>
+  dataSource: MatTableDataSource<RecurringExpense>;
 
-  expensesRows = [
-    "name",
-    "value",
-    "delete"
-  ];
+  expensesRows = ["name", "value", "delete"];
 
   constructor(profileService: ProfileService) {
     this.profileService = profileService;
@@ -32,7 +28,7 @@ export class ProfileComponent {
 
   reloadData() {
     this.profile = this.profileService.getProfile();
-    this.dataSource.data = this.profile.expenses; 
+    this.dataSource.data = this.profile.expenses;
   }
 
   updatedProfile() {
@@ -46,7 +42,7 @@ export class ProfileComponent {
   }
 
   deleteRow(expense: RecurringExpense) {
-    this.profileService.removeRecurringExpense(expense)
+    this.profileService.removeRecurringExpense(expense);
     this.reloadData();
   }
 }

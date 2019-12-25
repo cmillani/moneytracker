@@ -1,19 +1,18 @@
-import { Injectable } from '@angular/core';
-import { Profile } from '../models/profile';
+import { Injectable } from "@angular/core";
+import { Profile } from "../models/profile";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ProfileRepositoryService {
+  constructor() {}
 
-  constructor() { }
-
-  private profileKey: string = "PROFILE-KEY"
+  private profileKey: string = "PROFILE-KEY";
 
   getProfile(): Profile {
     let json: string = localStorage.getItem(this.profileKey);
     if (json == null) {
-      return new Profile(0, 0, []);
+      return new Profile(0, 0, [], true, 10);
     } else {
       return JSON.parse(json);
     }

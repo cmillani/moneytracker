@@ -10,27 +10,18 @@ import { RemainingToInvest } from "../models/remaining-to-invest";
 export class InvestmentListService {
   private investmentList: Array<InvestmentDetails> = [];
 
-  constructor(
-    public investmentRepository: InvestmentRepositoryService,
-    public profileService: ProfileService
-  ) {
+  constructor(public investmentRepository: InvestmentRepositoryService, public profileService: ProfileService) {
     this.investmentList = investmentRepository.getInvestments();
   }
 
   valueAvailable(): RemainingToInvest {
     let finalYear: number = Math.max(
       0,
-      ...this.investmentList.map(
-        element => element.numberOfYears + element.startingYear
-      )
+      ...this.investmentList.map(element => element.numberOfYears + element.startingYear)
     );
     let expenses: Array<number> = Array(finalYear).fill(0);
     for (let investment of this.investmentList) {
-      for (
-        var i = investment.startingYear;
-        i < investment.numberOfYears + investment.startingYear;
-        i++
-      ) {
+      for (var i = investment.startingYear; i < investment.numberOfYears + investment.startingYear; i++) {
         expenses[i] += parseFloat(investment.monthlyValue);
       }
     }
@@ -45,9 +36,9 @@ export class InvestmentListService {
     }
 
     for (let expense of expenses) {
-      let currentValue =
-        this.profileService.getProfile().desiredSavings - expense;
-      if (value > 0) { // Already found a value to set
+      let currentValue = this.profileService.getProfile().desiredSavings - expense;
+      if (value > 0) {
+        // Already found a value to set
         if (currentValue == value) {
           endingYear++;
         } else {
@@ -80,9 +71,7 @@ export class InvestmentListService {
   }
 
   update(investment: InvestmentDetails) {
-    let index: number = this.investmentList.findIndex(
-      element => element.id == investment.id
-    );
+    let index: number = this.investmentList.findIndex(element => element.id == investment.id);
     this.investmentList[index] = investment;
     this.investmentRepository.setInvestments(this.investmentList);
   }

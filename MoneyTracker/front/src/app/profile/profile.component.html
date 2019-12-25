@@ -1,25 +1,20 @@
 <div class="container">
   <div class="row">
-    <h6>Salário e Investimento</h6>
+    <h6>Salário</h6>
   </div>
   <div class="row">
     <div class="col">
       <mat-form-field matTooltip="Salário">
-        <input
-          matInput
-          type="number"
-          placeholder="Salário"
-          [(ngModel)]="profile.wage"
-          (change)="updatedProfile()"
-        />
+        <input matInput type="number" placeholder="Salário" [(ngModel)]="profile.wage" (change)="updatedProfile()" />
       </mat-form-field>
     </div>
   </div>
   <div class="row">
+    <h6>Investimentos</h6>
+  </div>
+  <div class="row">
     <div class="col">
-      <mat-form-field
-        matTooltip="Valor reservado do salário a ser investido mensalmente"
-      >
+      <mat-form-field matTooltip="Valor reservado do salário a ser investido mensalmente">
         <input
           matInput
           type="number"
@@ -30,6 +25,32 @@
       </mat-form-field>
     </div>
   </div>
+  <div class="row">
+    <div class="col">
+      <mat-checkbox [(ngModel)]="profile.keepInvestmentProportion" (change)="updatedProfile()"
+        >Manter proporção de investimentos</mat-checkbox
+      >
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div *ngIf="profile.keepInvestmentProportion" class="col">
+        <mat-form-field
+          matTooltip="Diferença máxima a ser tolerada entre proporção original e atual, antes de redistribuição"
+        >
+          <input
+            matInput
+            type="text"
+            mask="separator.2"
+            suffix="%"
+            placeholder="Diferença Tolerada"
+            [(ngModel)]="profile.toleratedProportionDifference"
+            (change)="updatedProfile()"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
   <mat-divider style="margin: 10px 0 10px 0;"></mat-divider>
   <div class="row">
     <h6>Despesas Fixas</h6>
@@ -37,22 +58,12 @@
   <div class="row align-items-center">
     <div class="col-2">
       <mat-form-field matTooltip="Nome da despesa">
-        <input
-          matInput
-          type="text"
-          placeholder="Nome da Despesa"
-          [(ngModel)]="expense.name"
-        />
+        <input matInput type="text" placeholder="Nome da Despesa" [(ngModel)]="expense.name" />
       </mat-form-field>
     </div>
     <div class="col-2">
       <mat-form-field matTooltip="Valor de uma nova despesa recorrente">
-        <input
-          matInput
-          type="number"
-          placeholder="Valor da Despesa"
-          [(ngModel)]="expense.value"
-        />
+        <input matInput type="number" placeholder="Valor da Despesa" [(ngModel)]="expense.value" />
       </mat-form-field>
     </div>
     <div class="col-2">
@@ -65,21 +76,25 @@
     <div class="col">
       <table style="width: 100%;" mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Nome</th>
-          <td mat-cell *matCellDef="let element" style="white-space: nowrap; padding-right: 20px;">{{ element.name }}</td>
+          <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">
+            Nome
+          </th>
+          <td mat-cell *matCellDef="let element" style="white-space: nowrap; padding-right: 20px;">
+            {{ element.name }}
+          </td>
         </ng-container>
         <ng-container matColumnDef="value">
           <th mat-header-cell *matHeaderCellDef style="width: 100%;">Valor</th>
           <td mat-cell *matCellDef="let element">{{ element.value }}</td>
         </ng-container>
         <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef style="width: 100px;"> </th>
+          <th mat-header-cell *matHeaderCellDef style="width: 100px;"></th>
           <td mat-cell *matCellDef="let element; let i = index">
-              <button mat-stroked-button (click)="deleteRow(element)">
-                  <mat-icon>delete</mat-icon>
-              </button>
+            <button mat-stroked-button (click)="deleteRow(element)">
+              <mat-icon>delete</mat-icon>
+            </button>
           </td>
-      </ng-container>
+        </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="expensesRows"></tr>
         <tr mat-row *matRowDef="let row; columns: expensesRows"></tr>
@@ -92,7 +107,7 @@
   </div>
   <div class="row">
     <div class="col">
-      {{profileService.remainingValueFor(profile) | currency:'BRL'}}
+      {{ profileService.remainingValueFor(profile) | currency: "BRL" }}
     </div>
   </div>
 </div>

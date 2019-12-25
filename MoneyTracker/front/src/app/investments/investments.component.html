@@ -1,18 +1,12 @@
 <div class="container">
   <div class="row align-items-center">
-    <div class="col">
-      <button
-        mat-stroked-button
-        (click)="addNewInvestment()"
-        style="margin: 20px;"
-      >
+    <div class="col" style="margin-bottom: 20px;">
+      <button mat-stroked-button (click)="addNewInvestment()" style="margin: 20px;">
         Adicionar Novo Investimento
       </button>
-      <div>
+      <div *ngIf="investmentListService.valueAvailable().value > 0; else nothingLeftToInvest">
         Você tem disponível para investir
-        <strong>{{
-          investmentListService.valueAvailable().value | currency: "BRL"
-        }}</strong>
+        <strong>{{ investmentListService.valueAvailable().value | currency: "BRL" }}</strong>
         <span *ngIf="investmentListService.valueAvailable().from < investmentListService.valueAvailable().to">
           do ano
           <strong>{{ investmentListService.valueAvailable().from }}</strong>
@@ -20,13 +14,11 @@
           <strong>{{ investmentListService.valueAvailable().to + 1 }}</strong>
         </span>
       </div>
+      <ng-template #nothingLeftToInvest><div>Você já investiu todo dinheiro reservado! :D</div></ng-template>
     </div>
   </div>
   <div class="row">
-    <app-investment-list
-      style="width: 100%;"
-      (investmentListEmitter)="updatedValues($event)"
-    ></app-investment-list>
+    <app-investment-list style="width: 100%;" (investmentListEmitter)="updatedValues($event)"></app-investment-list>
   </div>
   <div class="row">
     <app-projection-graphs style="width: 100%;"></app-projection-graphs>

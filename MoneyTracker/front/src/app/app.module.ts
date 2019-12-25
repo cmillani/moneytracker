@@ -18,6 +18,7 @@ import {
   MatToolbarModule,
   MatDividerModule,
   MatDialogModule,
+  MatCheckboxModule
 } from "@angular/material";
 import { InvestmentValuesFormComponent } from "./investments/investment-values-form/investment-values-form.component";
 
@@ -26,11 +27,11 @@ import { ProjectionGraphsComponent } from "./investments/projection-graphs/proje
 
 import { NgxMaskModule, IConfig } from "ngx-mask";
 import { InvestmentListComponent } from "./investments/investment-list/investment-list.component";
-import { InvestmentsComponent } from './investments/investments.component';
-import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
-import { GoalsComponent } from './goals/goals.component';
-import { EditInvestmentModalComponent } from './investments/edit-investment-modal/edit-investment-modal.component';
+import { InvestmentsComponent } from "./investments/investments.component";
+import { HomeComponent } from "./home/home.component";
+import { ProfileComponent } from "./profile/profile.component";
+import { GoalsComponent } from "./goals/goals.component";
+import { EditInvestmentModalComponent } from "./investments/edit-investment-modal/edit-investment-modal.component";
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = ({} = {});
 
 const modules = [
@@ -44,6 +45,7 @@ const modules = [
   MatButtonModule,
   MatIconModule,
   MatDialogModule,
+  MatCheckboxModule,
   NgxMaskModule.forRoot(options)
 ];
 
@@ -60,14 +62,7 @@ const modules = [
     EditInvestmentModalComponent
   ],
   exports: [],
-  imports: [
-    ...modules,
-    FormsModule,
-    ChartsModule,
-    BrowserModule,
-    AppRoutingModule,
-    NoopAnimationsModule
-  ],
+  imports: [...modules, FormsModule, ChartsModule, BrowserModule, AppRoutingModule, NoopAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [EditInvestmentModalComponent]

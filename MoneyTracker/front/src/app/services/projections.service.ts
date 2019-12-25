@@ -10,7 +10,7 @@ export class ProjectionsService {
   constructor() { }
 
   projectionsFrom(details: Array<InvestmentDetails>): InvestedProjections {
-    let maximumTime: number = details.reduce((max, current) => { return Math.max(max, current.numberOfYears) }, 0);
+    let maximumTime: number = details.reduce((max, current) => { return Math.max(max, current.numberOfYears + current.startingYear) }, 0);
     let projections: Array<ValueProjectionData> = []
     for (let detail of details) {
       projections.push(this.projectionFrom(detail, maximumTime))

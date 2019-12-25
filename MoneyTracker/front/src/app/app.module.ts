@@ -16,7 +16,8 @@ import {
   MatIconModule,
   MatSidenavModule,
   MatToolbarModule,
-  MatDividerModule
+  MatDividerModule,
+  MatDialogModule,
 } from "@angular/material";
 import { InvestmentValuesFormComponent } from "./investments/investment-values-form/investment-values-form.component";
 
@@ -29,6 +30,7 @@ import { InvestmentsComponent } from './investments/investments.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { GoalsComponent } from './goals/goals.component';
+import { EditInvestmentModalComponent } from './investments/edit-investment-modal/edit-investment-modal.component';
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = ({} = {});
 
 const modules = [
@@ -41,6 +43,7 @@ const modules = [
   MatTableModule,
   MatButtonModule,
   MatIconModule,
+  MatDialogModule,
   NgxMaskModule.forRoot(options)
 ];
 
@@ -53,7 +56,8 @@ const modules = [
     InvestmentsComponent,
     HomeComponent,
     ProfileComponent,
-    GoalsComponent
+    GoalsComponent,
+    EditInvestmentModalComponent
   ],
   exports: [],
   imports: [
@@ -65,6 +69,7 @@ const modules = [
     NoopAnimationsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [EditInvestmentModalComponent]
 })
 export class AppModule {}

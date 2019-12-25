@@ -29,4 +29,10 @@ export class InvestmentListService {
     this.investmentList.splice(index, 1);
     this.investmentRepository.setInvestments(this.investmentList);
   }
+
+  update(investment: InvestmentDetails) {
+    let index: number = this.investmentList.findIndex((element) => element.id == investment.id);
+    this.investmentList[index] = investment;
+    this.investmentRepository.setInvestments(this.investmentList);
+  }
 }

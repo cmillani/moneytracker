@@ -91,8 +91,7 @@ export class ProjectionsService {
     let gainingPercentage = 0;
     let monthly = new Array(numberOfMonths).fill(0);
     let monthlyEarning = new Array(numberOfMonths).fill(0);;
-
-console.log(projections)
+    
     for (var i = 0; i < projectionsCount; i++) {
       total += projections[i].total;
       original += projections[i].original;

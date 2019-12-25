@@ -1,7 +1,8 @@
 <div class="container">
   <div class="row">
-    <app-investment-values-form (formDetailsEmitter)="updatedValues($event)" style="width: 100%;">
-    </app-investment-values-form>
+    <div class="col">
+      <button mat-stroked-button (click)="addNewInvestment()" style="margin: 20px;">Adicionar Novo Investimento</button>
+    </div>
   </div>
   <div class="row">
     <app-investment-list style="width: 100%;" (investmentListEmitter)="updatedValues($event)"></app-investment-list>

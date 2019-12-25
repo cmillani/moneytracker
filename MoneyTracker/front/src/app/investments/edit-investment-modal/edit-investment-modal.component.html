@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Investimentos</h1>
+<div mat-dialog-content>
+  <app-investment-values-form
+    (formDetailsEmitter)="updatedValues($event)"
+    style="width: 100%;"
+    [formDetails]=editingInvestment
+  >
+  </app-investment-values-form>
+</div>
+<div mat-dialog-actions>
+  <div style="margin: auto;">
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button mat-button [mat-dialog-close]="editingInvestment" cdkFocusInitial>
+      Salvar
+    </button>
+  </div>
+</div>

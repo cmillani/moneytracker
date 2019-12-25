@@ -33,6 +33,9 @@ export class InvestmentsComponent implements AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return
+      }
       this.investmentListService.add(result);
       this.updatedValues();
     });

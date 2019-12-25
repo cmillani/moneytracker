@@ -56,6 +56,9 @@ export class InvestmentListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return
+      }
       this.investmentListService.update(result);
       this.investmentListEmitter.emit();
       this.reloadData();

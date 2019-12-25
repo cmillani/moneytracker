@@ -20,7 +20,7 @@ export class ProjectionsService {
     if (projections.length > 0) {
       total = this.totalFrom(projections, maximumTime);
     } else {
-      total = new ValueProjectionData([], [], 0, 0, 0, 0, "Total")
+      total = new ValueProjectionData([], [], 0, 0, 0, 0, 0, "Total")
     }
 
     return new InvestedProjections(projections, total);
@@ -30,15 +30,17 @@ export class ProjectionsService {
     details: InvestmentDetails,
     maximumTime: number
   ): ValueProjectionData {
-    let monthly: Array<number> = [];
-    let monthlyEarning: Array<number> = [];
 
     let finalNumberOfMonths: number = maximumTime * 12;
-    let numberOfMonths: number = details.numberOfYears * 12;
+    let startingMonth: number = details.startingYear * 12;
+    let numberOfMonths: number = details.numberOfYears * 12 + startingMonth;
     let interest: number = parseFloat(details.interest) / 100;
+    
+    let monthly: Array<number> = new Array(startingMonth).fill(0);
+    let monthlyEarning: Array<number> = new Array(startingMonth).fill(0);
 
     var accumulator: number = parseFloat(details.initialValue);
-    for (var i = 0; i < numberOfMonths; i++) {
+    for (var i = startingMonth; i < numberOfMonths; i++) {
       accumulator += parseFloat(details.monthlyValue);
       let newValue: number = accumulator * (1 + interest);
       monthly.push(newValue);
@@ -56,7 +58,7 @@ export class ProjectionsService {
     }
 
     let total = accumulator;
-    let original = parseFloat(details.monthlyValue) * numberOfMonths + parseFloat(details.initialValue);;
+    let original = parseFloat(details.monthlyValue) * (details.numberOfYears * 12) + parseFloat(details.initialValue);;
     let gainings = total - original;
     let gainingPercentage = (gainings / original) * 100;
 
@@ -67,6 +69,7 @@ export class ProjectionsService {
       original,
       gainings,
       gainingPercentage,
+      details.startingYear,
       details.description
     );
   }
@@ -110,6 +113,7 @@ export class ProjectionsService {
       original,
       gainings,
       gainingPercentage,
+      0,
       description
     );
   }

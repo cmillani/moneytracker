@@ -14,22 +14,21 @@
     </div>
     <div class="col">
       <mat-form-field style="max-width: 100px;"
-        matTooltip="Valor a ser depositado mensalmente nesse investimento">
-        <input matInput mask="separator.2" thousandSeparator="." type="text" placeholder="Início"
-          [(ngModel)]="formDetails.startingYear" />
+        matTooltip="Ano do início do investimento">
+        <input matInput type="number" placeholder="Início" [(ngModel)]="formDetails.startingYear" />
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field style="max-width: 125px;"
         matTooltip="Valor colocado inicialmente.">
-        <input matInput mask="separator.2" thousandSeparator="." type="text" id="numberOfYears"
+        <input matInput mask="separator.2" type="text" id="numberOfYears"
           placeholder="Aporte Inicial" [(ngModel)]="formDetails.initialValue" />
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field style="max-width: 100px;"
         matTooltip="Valor a ser depositado mensalmente nesse investimento">
-        <input matInput mask="separator.2" thousandSeparator="." type="text" placeholder="Aporte Mensal"
+        <input matInput mask="separator.2" type="text" placeholder="Aporte Mensal"
           [(ngModel)]="formDetails.monthlyValue" />
       </mat-form-field>
     </div>

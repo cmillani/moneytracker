@@ -28,6 +28,7 @@ export class InvestmentListComponent implements OnInit {
   investmentsRows = [
     "description",
     "years",
+    "initialDate",
     "initial",
     "monthly",
     "interest",

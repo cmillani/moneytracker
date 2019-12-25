@@ -18,6 +18,7 @@ export class EditInvestmentModalComponent {
     public dialogRef: MatDialogRef<EditInvestmentModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: InvestmentDetails
   ) {
+    console.log(data);
     this.editingInvestment = Object.assign({}, data);
   }
 

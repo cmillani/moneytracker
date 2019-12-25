@@ -6,6 +6,7 @@ export class ValueProjectionData {
   original: number;
   gainings: number;
   gainingPercentage: number;
+  startingYear: number;
   description: string;
 
   constructor(
@@ -15,6 +16,7 @@ export class ValueProjectionData {
     original: number,
     gainings: number,
     gainingPercentage: number,
+    startingYear: number,
     description: string
   ) {
     this.monthly = monthly;

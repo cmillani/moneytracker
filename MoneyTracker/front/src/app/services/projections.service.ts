@@ -18,7 +18,7 @@ class Reajusts {
   providedIn: "root"
 })
 export class ProjectionsService {
-  constructor(public profileService: ProfileService) {}
+  constructor(public profileService: ProfileService) { }
 
   projectionsFrom(details: Array<InvestmentDetails>): InvestedProjections {
     let maximumTime: number = details.reduce((max, current) => {
@@ -76,7 +76,7 @@ export class ProjectionsService {
     let projectionsToAnalyse: Array<ValueProjectionData> = this.activeInvestmentsFrom(projections, currentMonth);
     let originalPercentages: Array<number> = this.percentagesFrom(projectionsToAnalyse);
     let currentPercentages: Array<number> = this.currentPercentagesFrom(projectionsToAnalyse, currentMonth);
-    let total: number = projections.reduce(
+    let total: number = projectionsToAnalyse.reduce(
       (acc, current) => acc + (current.monthly.length > 0 ? current.monthly[currentMonth] : 0),
       0
     );
@@ -87,10 +87,10 @@ export class ProjectionsService {
       let difference: number = -(currentPercentages[i] - originalPercentages[i]);
 
       let acceptedReajust: number = (difference + Math.sign(difference) * allowedPercentage) * total;
-
+      
       let positiveReajustNeeds: number = Math.abs(difference) - allowedPercentage;
       let neededToReajust: number = positiveReajustNeeds < 0 ? 0 : Math.sign(difference) * positiveReajustNeeds * total;
-
+      
       reajusts.push(new Reajusts(acceptedReajust, neededToReajust));
     }
     this.redistributePositiveMoney(projectionsToAnalyse, currentMonth, reajusts, originalPercentages);
@@ -166,7 +166,19 @@ export class ProjectionsService {
   }
 
   private adjustTotalsFrom(projections: Array<ValueProjectionData>) {
-    //
+    for (let projection of projections) {
+      projection.total = projection.monthly.length > 0 ? projection.monthly[projection.monthly.length - 1] : 0;
+      projection.original = parseFloat(projection.details.monthlyValue) * (projection.details.numberOfYears * 12) + parseFloat(projection.details.initialValue);
+      projection.gainings = projection.total - projection.original;
+      projection.gainingPercentage = (projection.gainings/projection.original);
+      projection.finalMonthlyEarning = projection.monthlyEarning.length > 0 ? projection.monthlyEarning[projection.monthlyEarning.length - 1] : 0;
+
+      projection.total = projection.total.roundTo2Places();
+      projection.original = projection.original.roundTo2Places();
+      projection.gainings = projection.gainings.roundTo2Places();
+      projection.gainingPercentage = projection.gainingPercentage.roundTo2Places();
+      projection.finalMonthlyEarning = projection.finalMonthlyEarning.roundTo2Places();
+    }
   }
 
   private totalFrom(projections: Array<ValueProjectionData>, maximumTime: number): ValueProjectionData {
@@ -201,12 +213,12 @@ export class ProjectionsService {
     return new ValueProjectionData(
       monthly,
       monthlyEarning,
-      total,
-      original,
-      gainings,
-      gainingPercentage,
+      total.roundTo2Places(),
+      original.roundTo2Places(),
+      gainings.roundTo2Places(),
+      gainingPercentage.roundTo2Places(),
       description,
-      monthlyEarning.length > 0 ? monthlyEarning[monthlyEarning.length - 1] : 0,
+      monthlyEarning.length > 0 ? monthlyEarning[monthlyEarning.length - 1].roundTo2Places() : 0,
       null
     );
   }

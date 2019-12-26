@@ -17,7 +17,7 @@ export class GoalsComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      
+
     });
   }
 

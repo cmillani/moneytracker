@@ -34,6 +34,9 @@ import { ProfileComponent } from "./profile/profile.component";
 import { GoalsComponent } from "./goals/goals.component";
 import { EditInvestmentModalComponent } from "./investments/edit-investment-modal/edit-investment-modal.component";
 import { NewGoalModalComponent } from './goals/new-goal-modal/new-goal-modal.component';
+import { NewCarComponent } from './goals/new-goal-modal/new-car/new-car.component';
+import { NewHouseComponent } from './goals/new-goal-modal/new-house/new-house.component';
+import { NewSimpleGoalComponent } from './goals/new-goal-modal/new-simple-goal/new-simple-goal.component';
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = ({} = {});
 
 const modules = [
@@ -63,7 +66,10 @@ const modules = [
     ProfileComponent,
     GoalsComponent,
     EditInvestmentModalComponent,
-    NewGoalModalComponent
+    NewGoalModalComponent,
+    NewCarComponent,
+    NewHouseComponent,
+    NewSimpleGoalComponent
   ],
   exports: [],
   imports: [...modules, FormsModule, ChartsModule, BrowserModule, AppRoutingModule, NoopAnimationsModule],

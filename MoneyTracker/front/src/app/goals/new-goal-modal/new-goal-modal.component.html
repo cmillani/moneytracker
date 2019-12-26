@@ -1,9 +1,15 @@
 <h1 mat-dialog-title>Meta</h1>
 <div mat-dialog-content>
   <mat-tab-group>
-    <mat-tab label="Imóvel"> Content 1 </mat-tab>
-    <mat-tab label="Automóvel"> Content 2 </mat-tab>
-    <mat-tab label="Bem Geral"> Content 3 </mat-tab>
+    <mat-tab label="Imóvel">
+      <app-new-house></app-new-house>
+    </mat-tab>
+    <mat-tab label="Automóvel">
+      <app-new-car></app-new-car>
+    </mat-tab>
+    <mat-tab label="Bem Geral">
+      <app-new-simple-goal></app-new-simple-goal>
+    </mat-tab>
   </mat-tab-group>
 </div>
 <div mat-dialog-actions>

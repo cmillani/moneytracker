@@ -15,38 +15,25 @@
   <div class="row">
     <div class="col">
       <mat-form-field matTooltip="Valor reservado do salário a ser investido mensalmente">
-        <input
-          matInput
-          type="number"
-          placeholder="Reservado para Investimentos"
-          [(ngModel)]="profile.desiredSavings"
-          (change)="updatedProfile()"
-        />
+        <input matInput type="number" placeholder="Reservado para Investimentos" [(ngModel)]="profile.desiredSavings"
+          (change)="updatedProfile()" />
       </mat-form-field>
     </div>
   </div>
   <div class="row">
     <div class="col">
-      <mat-checkbox [(ngModel)]="profile.keepInvestmentProportion" (change)="updatedProfile()"
-        >Manter proporção de investimentos</mat-checkbox
-      >
+      <mat-checkbox [(ngModel)]="profile.keepInvestmentProportion" (change)="updatedProfile()">
+        Manter proporção de investimentos
+      </mat-checkbox>
     </div>
   </div>
   <div class="row">
     <div class="col">
       <div *ngIf="profile.keepInvestmentProportion" class="col">
         <mat-form-field
-          matTooltip="Diferença máxima a ser tolerada entre proporção original e atual, antes de redistribuição"
-        >
-          <input
-            matInput
-            type="text"
-            mask="separator.2"
-            suffix="%"
-            placeholder="Diferença Tolerada"
-            [(ngModel)]="profile.toleratedProportionDifference"
-            (change)="updatedProfile()"
-          />
+          matTooltip="Diferença máxima a ser tolerada entre proporção original e atual, antes de redistribuição">
+          <input matInput type="text" mask="separator.2" suffix="%" placeholder="Diferença Tolerada"
+            [(ngModel)]="profile.toleratedProportionDifference" (change)="updatedProfile()" />
         </mat-form-field>
       </div>
     </div>
@@ -85,7 +72,16 @@
         </ng-container>
         <ng-container matColumnDef="value">
           <th mat-header-cell *matHeaderCellDef style="width: 100%;">Valor</th>
-          <td mat-cell *matCellDef="let element">{{ element.value }}</td>
+          <td mat-cell *matCellDef="let element, let index = index">
+            <span>
+              <span (click)="toggleEditing(index)" *ngIf="!editingElements[index]; else showEditing">{{ element.value }}</span>
+              <ng-template #showEditing>
+                <mat-form-field>
+                  <input #valueInput matInput (focusout)="toggleEditing(index)" [(ngModel)]="element.value" type="number"/>
+                </mat-form-field>
+              </ng-template>
+            </span>
+          </td>
         </ng-container>
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef style="width: 100px;"></th>

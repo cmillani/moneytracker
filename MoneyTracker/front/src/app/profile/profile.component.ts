@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ViewChild, ElementRef } from "@angular/core";
 import { MatTableDataSource } from "@angular/material";
 
 import { Profile } from "../models/profile";
@@ -15,9 +15,18 @@ export class ProfileComponent {
   private profileService: ProfileService;
   private expense: RecurringExpense;
 
+  @ViewChild('valueInput', {static: false}) set content(content: ElementRef) {
+    if (content) {
+      setTimeout(() => content.nativeElement.focus(), 0);
+    }
+  }
+
+
   dataSource: MatTableDataSource<RecurringExpense>;
 
   expensesRows = ["name", "value", "delete"];
+
+  editingElements: Object = {}
 
   constructor(profileService: ProfileService) {
     this.profileService = profileService;
@@ -26,6 +35,11 @@ export class ProfileComponent {
     this.dataSource = new MatTableDataSource<RecurringExpense>(this.profile.expenses);
   }
 
+  toggleEditing(index) {
+    this.editingElements[index] = this.editingElements[index] != null ? !this.editingElements[index] : true;
+    this.updatedProfile();
+  }
+ 
   reloadData() {
     this.profile = this.profileService.getProfile();
     this.dataSource.data = this.profile.expenses;

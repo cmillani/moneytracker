@@ -8,6 +8,7 @@ export class InvestmentDetails {
   monthlyValue: string = "1000";
   interest: string = "0.5";
   startingYear: number = 0;
+  shouldRedistribute: boolean = true;
 
   constructor(id: string = uuid()) {
     this.id = id;

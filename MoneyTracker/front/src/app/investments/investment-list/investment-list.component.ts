@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dial
 import { InvestmentDetails } from "../../models/investment-details";
 import { InvestmentListService } from "../../services/investment-list.service";
 import { EditInvestmentModalComponent } from "../edit-investment-modal/edit-investment-modal.component";
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: "app-investment-list",
@@ -17,9 +18,9 @@ export class InvestmentListComponent implements OnInit {
   investmentList: Array<InvestmentDetails> = [new InvestmentDetails()];
   dataSource: MatTableDataSource<InvestmentDetails> = new MatTableDataSource<InvestmentDetails>(this.investmentList);
 
-  investmentsRows = ["description", "years", "initialDate", "initial", "monthly", "interest", "actions"];
+  investmentsRows = ["shouldRedistribute", "description", "years", "initialDate", "initial", "monthly", "interest", "actions"];
 
-  constructor(public investmentListService: InvestmentListService, public dialog: MatDialog) {}
+  constructor(public investmentListService: InvestmentListService, public profileService: ProfileService, public dialog: MatDialog) {}
 
   reloadData() {
     this.dataSource.data = this.investmentListService.getAll();
@@ -27,6 +28,12 @@ export class InvestmentListComponent implements OnInit {
 
   deleteRow(element: InvestmentDetails) {
     this.investmentListService.remove(element);
+    this.investmentListEmitter.emit();
+    this.reloadData();
+  }
+
+  didEditRow(element: InvestmentDetails) {
+    this.investmentListService.update(element);
     this.investmentListEmitter.emit();
     this.reloadData();
   }

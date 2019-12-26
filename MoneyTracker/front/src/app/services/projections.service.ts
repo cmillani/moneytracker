@@ -87,7 +87,7 @@ export class ProjectionsService {
       let difference: number = -(currentPercentages[i] - originalPercentages[i]);
 
       let acceptedReajust: number = (difference + Math.sign(difference) * allowedPercentage) * total;
-      
+
       let positiveReajustNeeds: number = Math.abs(difference) - allowedPercentage;
       let neededToReajust: number = positiveReajustNeeds < 0 ? 0 : Math.sign(difference) * positiveReajustNeeds * total;
       
@@ -134,12 +134,7 @@ export class ProjectionsService {
     projections: Array<ValueProjectionData>,
     currentMonth: number
   ): Array<ValueProjectionData> {
-    return projections.filter(element => {
-      let hasStarted: boolean = currentMonth >= element.details.startingYear * 12;
-      let hasNotEnded: boolean = currentMonth < element.details.startingYear * 12 + element.details.numberOfYears * 12;
-
-      return hasStarted && hasNotEnded;
-    });
+    return projections.filter(element => element.details.shouldRedistribute && currentMonth > (element.details.startingYear * 12));
   }
 
   private currentPercentagesFrom(projections: Array<ValueProjectionData>, currentMonth: number) {

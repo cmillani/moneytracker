@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 
 export interface GoalForm {
   isValid(): boolean
-  submit()
+  submit(): boolean
 }
 
 @Component({
@@ -21,7 +21,9 @@ export class NewGoalModalComponent {
   constructor(public dialogRef: MatDialogRef<NewGoalModalComponent>) { }
 
   submit() {
-    console.log(this.goalForms);
+    if (this.goalForms && this.goalForms.toArray()[this.selectedIndex.value].submit()) {
+      this.dialogRef.close();
+    }
   }
 
   isValid(): boolean {

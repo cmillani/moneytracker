@@ -10,7 +10,8 @@ export class NewHouseComponent implements GoalForm {
 
   constructor() { }
 
-  submit() {
+  submit(): boolean {
+    return false;
   }
 
   isValid(): boolean {

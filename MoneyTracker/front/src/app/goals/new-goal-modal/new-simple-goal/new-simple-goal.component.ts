@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NewSimpleGoal } from 'src/app/models/new-simple-goal';
 import { NgForm } from '@angular/forms';
 import { GoalForm } from '../new-goal-modal.component';
+import { GoalService } from 'src/app/services/goal.service';
 
 @Component({
   selector: 'app-new-simple-goal',
@@ -13,12 +14,15 @@ export class NewSimpleGoalComponent implements GoalForm {
 
   @ViewChild('simpleGoalForm',{static: false}) simpleGoalForm: NgForm;
 
-  constructor() { 
+  constructor(public goalService: GoalService) { 
     this.simpleGoal = new NewSimpleGoal(0, 0, 0);
   }
 
-  submit() {
+  submit(): boolean {
+    if (!this.isValid()) { return false }
 
+    this.goalService.addGoal(this.simpleGoal);
+    return true;
   }
 
   isValid(): boolean {

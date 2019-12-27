@@ -10,8 +10,8 @@ export class NewCarComponent implements GoalForm {
 
   constructor() { }
 
-  submit() {
-    
+  submit(): boolean {
+    return false;
   }
 
   isValid(): boolean {

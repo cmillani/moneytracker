@@ -1,21 +1,21 @@
 <h1 mat-dialog-title>Meta</h1>
 <div mat-dialog-content>
-  <mat-tab-group>
+  <mat-tab-group [selectedIndex]="selectedIndex.value" (selectedIndexChange)="selectedIndex.setValue($event)">
     <mat-tab label="Imóvel">
-      <app-new-house></app-new-house>
+      <app-new-house #goalForm></app-new-house>
     </mat-tab>
     <mat-tab label="Automóvel">
-      <app-new-car></app-new-car>
+      <app-new-car #goalForm></app-new-car>
     </mat-tab>
     <mat-tab label="Bem Geral">
-      <app-new-simple-goal></app-new-simple-goal>
+      <app-new-simple-goal #goalForm></app-new-simple-goal>
     </mat-tab>
   </mat-tab-group>
 </div>
 <div mat-dialog-actions>
   <div style="margin: auto;">
     <button mat-button (click)="onNoClick()">Cancelar</button>
-    <button mat-button [mat-dialog-close]="" cdkFocusInitial>
+    <button mat-button (click)="submit()" [disabled]="!isValid()" cdkFocusInitial>
       Salvar
     </button>
   </div>

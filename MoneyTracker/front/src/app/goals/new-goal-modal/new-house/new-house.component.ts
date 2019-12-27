@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { GoalForm } from '../new-goal-modal.component';
 
 @Component({
   selector: 'app-new-house',
   templateUrl: './new-house.component.html',
   styleUrls: ['./new-house.component.css']
 })
-export class NewHouseComponent implements OnInit {
+export class NewHouseComponent implements GoalForm {
 
   constructor() { }
 
-  ngOnInit() {
+  submit() {
+  }
+
+  isValid(): boolean {
+    return false;
   }
 
 }

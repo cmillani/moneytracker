@@ -1,15 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NewSimpleGoal } from 'src/app/models/new-simple-goal';
+import { NgForm } from '@angular/forms';
+import { GoalForm } from '../new-goal-modal.component';
 
 @Component({
   selector: 'app-new-simple-goal',
   templateUrl: './new-simple-goal.component.html',
   styleUrls: ['./new-simple-goal.component.css']
 })
-export class NewSimpleGoalComponent implements OnInit {
+export class NewSimpleGoalComponent implements GoalForm {
+  simpleGoal: NewSimpleGoal
 
-  constructor() { }
+  @ViewChild('simpleGoalForm',{static: false}) simpleGoalForm: NgForm;
 
-  ngOnInit() {
+  constructor() { 
+    this.simpleGoal = new NewSimpleGoal(0, 0, 0);
+  }
+
+  submit() {
+
+  }
+
+  isValid(): boolean {
+    return this.simpleGoalForm && this.simpleGoalForm.form.valid;
   }
 
 }

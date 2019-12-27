@@ -1,27 +1,29 @@
-<div class="row" style="margin-top: 30px;">
-    <h6 class="col">A Meta</h6>
-</div>
-<mat-divider></mat-divider>
-<div class="row">
-    <div class="col">
-        <mat-form-field matTooltip="Valor do Bem">
-            <input matInput type="text" placeholder="Valor do Bem" />
-        </mat-form-field>
+<form (ngSubmit)="submit()" #simpleGoalForm="ngForm">
+    <div class="row" style="margin-top: 30px;">
+        <h6 class="col">A Meta</h6>
     </div>
-</div>
-<div class="row" style="margin-top: 30px;">
-    <h6 class="col">Dados do pagamento</h6>
-</div>
-<mat-divider></mat-divider>
-<div class="row" style="margin-bottom: 30px;">
-    <div class="col">
-        <mat-form-field matTooltip="Taxa de Juros a ser paga no financiamento">
-            <input matInput type="text" placeholder="Juros a.m." />
-        </mat-form-field>
+    <mat-divider></mat-divider>
+    <div class="row">
+        <div class="col">
+            <mat-form-field matTooltip="Valor do Bem">
+                <input required matInput type="text" placeholder="Valor do Bem" name="itemValue" [(ngModel)]="simpleGoal.itemValue" prefix="R$" mask="separator.2" />
+            </mat-form-field>
+        </div>
     </div>
-    <div class="col">
-        <mat-form-field matTooltip="Valor mensal a ser pago no financiamento">
-            <input matInput type="text" placeholder="Numero de Parcelas" />
-        </mat-form-field>
+    <div class="row" style="margin-top: 30px;">
+        <h6 class="col">Dados do pagamento</h6>
     </div>
-</div>
+    <mat-divider></mat-divider>
+    <div class="row" style="margin-bottom: 30px;">
+        <div class="col">
+            <mat-form-field matTooltip="Taxa de Juros a ser paga no financiamento">
+                <input required matInput type="text" placeholder="Juros a.m." name="monthlyInterest" [(ngModel)]="simpleGoal.monthlyInterest" suffix="%" mask="separator.2" />
+            </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field matTooltip="Numero de parcelas do bem">
+                <input required matInput type="text" placeholder="Numero de Parcelas" name="numberOfInstallments" [(ngModel)]="simpleGoal.numberOfInstallments" prefix="R$" mask="separator.2" />
+            </mat-form-field>
+        </div>
+    </div>
+</form>

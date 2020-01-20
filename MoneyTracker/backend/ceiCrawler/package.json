@@ -9,6 +9,7 @@
   "author": "cmillani",
   "license": "ISC",
   "dependencies": {
-    "puppeteer": "^2.0.0"
+    "puppeteer": "^2.0.0",
+    "read": "^1.0.7"
   }
 }

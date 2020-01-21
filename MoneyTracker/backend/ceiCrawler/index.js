@@ -1,5 +1,18 @@
 const puppeteer = require('puppeteer');
 const read = require('read');
+const fs = require('fs');
+
+class Parameters {
+    username = null
+    password = null
+    output = null
+
+    isValid() {
+        return !!this.username || !!this.password || !!this.output;
+    }
+}
+
+var programParameters = new Parameters()
 
 class Credentials {
     constructor(document, password) {
@@ -11,22 +24,31 @@ class Credentials {
 async function retrieveCredentials() {
     let document = await retrieveDocument();
     let password = await retrieveSecurePassword();
+
     return new Credentials(document, password);
 }
 
 async function retrieveDocument() {
     return await new Promise( res => {
-        read({prompt: "CPF:"}, (_, result) => {
-            res(result);
-        })
+        if (programParameters.username != null) {
+            res(programParameters.username);
+        } else {
+            read({prompt: "CPF:"}, (_, result) => {
+                res(result);
+            })
+        }
     })
 }
 
 async function retrieveSecurePassword() {
     return await new Promise( res => {
-        read({prompt: "Senha:", silent: true}, (_, result) => {
-            res(result);
-        })
+        if (programParameters.password != null) {
+            res(programParameters.password);
+        } else {
+            read({prompt: "Senha:", silent: true}, (_, result) => {
+                res(result);
+            })
+        }
     })
 }
 
@@ -84,23 +106,55 @@ async function listAllOptionsFromSelect(select) {
     return allOptions.slice(1);
 }
 
+function validateInputs() {
+    let currentIndex = 0
+    while(!!process.argv[currentIndex]) {
+        switch(process.argv[currentIndex]) {
+            case "-u":
+                programParameters.username = process.argv[++currentIndex];
+                break;
+            case "-p":
+                programParameters.password = process.argv[++currentIndex];
+                break;
+            case "-o":
+                programParameters.output = process.argv[++currentIndex];
+                break;
+            default:
+                break;
+        }
+        currentIndex++;
+    }
+
+    return Promise.resolve();
+}
+
 function sanitizeText(text) {
     let clearedSpaces = text.replace(/\s/g, '');
     let clearedTags = clearedSpaces.replace(/<\s*[^>]*>/g, '');
     return clearedTags.replace('\\n', '');
 }
 
-puppeteer.launch({headless: false}).then ( browser => {
-    retrieveCredentials().then( credentials => {
-        return retrieveCurrentInvestmentsForCredentials(browser, credentials);
-    }).then( investments => {
-        console.log(JSON.stringify(investments));
-        return browser.close();
-    }).catch ( error => {
-        console.error(error);
-        return browser.close().then( () => {
-            throw error;
+
+validateInputs().then( () => {
+    puppeteer.launch({headless: true}).then ( browser => {
+        retrieveCredentials().then( credentials => {
+            return retrieveCurrentInvestmentsForCredentials(browser, credentials);
+        }).then( investments => {
+            let dataToOutput = JSON.stringify(investments);
+            if (programParameters.output != null) {
+                fs.writeFileSync(programParameters.output, dataToOutput);
+            } else {
+                console.log(dataToOutput);   
+            }
+            return browser.close();
+        }).catch ( error => {
+            console.error(error);
+            return browser.close().then( () => {
+                process.exit(-1);
+            });
         });
     });
+}).catch( () => {
+    process.exit(-1);
 })
 

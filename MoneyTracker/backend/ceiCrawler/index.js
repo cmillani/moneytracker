@@ -43,15 +43,13 @@ async function retrieveCurrentInvestmentsForCredentials(browser, credentials) {
 
     let allOptions = await listAllOptionsFromSelect(optionsSelectElement);
 
-    let investmentsList = []
+    let investmentsList = [];
     for(let option of allOptions) {
         await page.select('#ctl00_ContentPlaceHolder1_ddlAgentes', option);
         await page.click('#ctl00_ContentPlaceHolder1_btnConsultar');
         let table = await page.waitForSelector('#ctl00_ContentPlaceHolder1_rptAgenteBolsa_ctl00_rptContaBolsa_ctl00_pnAtivosNegociados');
-        let headerRow = await table.$('thead > tr')
+        let headerRow = await table.$('thead > tr');
         let rows = await table.$$('tbody > tr');
-        console.log(rows)
-        console.log(headerRow)
         investmentsList.push(...(await parseTableToJSON(headerRow, rows)));
         await page.goto('https://cei.b3.com.br/CEI_Responsivo/negociacao-de-ativos.aspx');
     }
@@ -100,7 +98,9 @@ puppeteer.launch({headless: false}).then ( browser => {
         return browser.close();
     }).catch ( error => {
         console.error(error);
-        return browser.close();
+        return browser.close().then( () => {
+            throw error;
+        });
     });
 })
 

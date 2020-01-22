@@ -1,8 +1,15 @@
+buildscript {
+    dependencies {
+        
+    }
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.2.3.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
 	id 'war'
+	id "org.flywaydb.flyway" version "6.1.4"
 }
 
 group = 'br.com.cadumillani'
@@ -24,7 +31,6 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	// https://mvnrepository.com/artifact/org.postgresql/postgresql
 	compile(group: 'org.postgresql', name: 'postgresql', version: '42.1.4')
-
 
 }
 

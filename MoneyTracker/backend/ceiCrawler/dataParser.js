@@ -27,6 +27,7 @@ class Operation {
         this.assetSpecification = assetSpecification;
         this.price = price;
         this.quantity = quantity;
+        this.isManual = false;
     }
 }
 

@@ -1,4 +1,4 @@
-package br.com.cadumillani.moneytracker;
+package br.com.cadumillani.moneytracker.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,5 +11,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests().antMatchers("/").permitAll();
+        http.csrf().disable();
     }
 }

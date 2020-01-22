@@ -30,8 +30,8 @@ dependencies {
 	}
 	testImplementation 'org.springframework.security:spring-security-test'
 	// https://mvnrepository.com/artifact/org.postgresql/postgresql
-	compile(group: 'org.postgresql', name: 'postgresql', version: '42.1.4')
-
+	compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
+	compile group: 'org.flywaydb', name: 'flyway-core', version: '6.1.4'
 }
 
 test {

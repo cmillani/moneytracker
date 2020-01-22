@@ -96,7 +96,7 @@ function parseInvestments(input) {
             let type = operationTypeFromString(operation["Compra/Venda"]);
             let asset = operation["CódigoNegociação"];
             let assetSpecification = operation["EspecificaçãodoAtivo"];
-            let quantity = operation["Quantidade"];
+            let quantity = parseInt(operation["Quantidade"]);
             let price = parseFloat(operation["Preço(R$)"].replace(",", "."));
             operations.push(new Operation(type, date, asset, assetSpecification, price, quantity));
         }

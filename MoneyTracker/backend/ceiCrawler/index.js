@@ -3,9 +3,9 @@ const read = require('read');
 const fs = require('fs');
 
 class Parameters {
-    username = null
-    password = null
-    output = null
+    username = null;
+    password = null;
+    output = null;
 
     isValid() {
         return !!this.username || !!this.password || !!this.output;

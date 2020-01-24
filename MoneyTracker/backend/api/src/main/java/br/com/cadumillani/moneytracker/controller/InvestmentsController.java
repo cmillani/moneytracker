@@ -29,7 +29,6 @@ public class InvestmentsController {
 
 	@PostMapping(name = "/", produces = "application/json", consumes = "application/json")
 	public ResponseEntity<HttpStatus> addOperation(@Valid @RequestBody Investment investment) {
-		System.out.println(investment);
 		investmentService.createInvestment(investment);
 		return ResponseEntity.ok(HttpStatus.OK);
 	}

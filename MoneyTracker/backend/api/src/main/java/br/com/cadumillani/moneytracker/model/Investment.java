@@ -11,6 +11,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,9 +36,9 @@ public class Investment {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    @Column(name = "document")
-    @NotBlank
-    private String document;
+    @ManyToOne
+    @JoinColumn(name = "userid")
+    private User user;
 
     @Column(name = "assetcode")
     @NotBlank
@@ -61,11 +63,11 @@ public class Investment {
     public Investment() {
     }
 
-    public Investment(long id, OperationType type, Date date, String document, String assetCode, String assetSpecification, BigDecimal price, Integer quantity, Boolean isManual) {
+    public Investment(long id, OperationType type, Date date, User user, String assetCode, String assetSpecification, BigDecimal price, Integer quantity, Boolean isManual) {
         this.id = id;
         this.type = type;
         this.date = date;
-        this.document = document;
+        this.user = user;
         this.assetCode = assetCode;
         this.assetSpecification = assetSpecification;
         this.price = price;
@@ -97,12 +99,12 @@ public class Investment {
         this.date = date;
     }
 
-    public String getDocument() {
-        return this.document;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setDocument(String document) {
-        this.document = document;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getAssetCode() {
@@ -164,8 +166,8 @@ public class Investment {
         return this;
     }
 
-    public Investment document(String document) {
-        this.document = document;
+    public Investment user(User user) {
+        this.user = user;
         return this;
     }
 
@@ -202,12 +204,12 @@ public class Investment {
             return false;
         }
         Investment investment = (Investment) o;
-        return id == investment.id && Objects.equals(type, investment.type) && Objects.equals(date, investment.date) && Objects.equals(document, investment.document) && Objects.equals(assetCode, investment.assetCode) && Objects.equals(assetSpecification, investment.assetSpecification) && Objects.equals(price, investment.price) && Objects.equals(quantity, investment.quantity) && Objects.equals(isManual, investment.isManual);
+        return id == investment.id && Objects.equals(type, investment.type) && Objects.equals(date, investment.date) && Objects.equals(user, investment.user) && Objects.equals(assetCode, investment.assetCode) && Objects.equals(assetSpecification, investment.assetSpecification) && Objects.equals(price, investment.price) && Objects.equals(quantity, investment.quantity) && Objects.equals(isManual, investment.isManual);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, type, date, document, assetCode, assetSpecification, price, quantity, isManual);
+        return Objects.hash(id, type, date, user, assetCode, assetSpecification, price, quantity, isManual);
     }
 
     @Override
@@ -216,7 +218,7 @@ public class Investment {
             " id='" + getId() + "'" +
             ", type='" + getType() + "'" +
             ", date='" + getDate() + "'" +
-            ", document='" + getDocument() + "'" +
+            ", user='" + getUser() + "'" +
             ", assetCode='" + getAssetCode() + "'" +
             ", assetSpecification='" + getAssetSpecification() + "'" +
             ", price='" + getPrice() + "'" +
@@ -224,4 +226,5 @@ public class Investment {
             ", isManual='" + isIsManual() + "'" +
             "}";
     }
+    
 }

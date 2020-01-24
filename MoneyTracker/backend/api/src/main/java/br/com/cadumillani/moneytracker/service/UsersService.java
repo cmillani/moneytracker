@@ -26,6 +26,10 @@ public class UsersService implements UserDetailsService {
         userRepository.save(user);
     }
 
+    public User systemUserByUsername(String username) {
+        return userRepository.findOneByUsername(username);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findOneByUsername(username);
